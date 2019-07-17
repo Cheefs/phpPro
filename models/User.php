@@ -1,17 +1,29 @@
 <?php
 
 namespace app\models;
-
+/**
+ * @property string $first_name
+ * @property string $last_name
+ * @property string $second_name
+ * @property string $email
+ * @property string $phone
+*/
 class User extends Model {
-
-    protected $userName;
+    protected $username;
     protected $password;
-    protected $isGuest = true;
+
+    public $first_name;
+    public $last_name;
+    public $second_name;
+    public $email;
+    public $phone;
+
+    public $is_guest = false;
 
     /**
      * @return mixed|string
      */
-    public static function tableName() {
+    public function tableName() {
         return 'users';
     }
 
@@ -19,21 +31,26 @@ class User extends Model {
      * @param string $username
      */
     public function setUserName(string $username) {
-        $this->userName = $username;
+        $this->username = $username;
     }
 
     /**
      * @param string $password
      */
     public function setPassword(string $password) {
-        $this->password = $password;
+        $this->password = $this->getPasswordHash($password);
     }
 
     /**
      * @return bool
      */
     public function isGuest() {
-        return $this->isGuest;
+        return $this->is_guest;
+    }
+
+    public function getCart() {
+        $id = $this->getUserId();
+        /// Select * from cart Where user_id = $id
     }
 
     /**
@@ -41,7 +58,7 @@ class User extends Model {
      */
     private function auth() {
         $isGuest = false;
-        $userName = htmlspecialchars(strip_tags($this->userName));
+        $userName = htmlspecialchars(strip_tags($this->username));
         $password = htmlspecialchars(strip_tags($this->password));
         $password = $this->getPasswordHash($password);
         /// запрос в базу данных на авторизацию
