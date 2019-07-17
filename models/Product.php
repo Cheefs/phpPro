@@ -84,7 +84,7 @@ class Product extends Model {
      * Функция для установки названия таблици базы данных для класса
      * @return mixed
      */
-    public static function tableName() {
+    public function tableName() {
         return 'products';
     }
 

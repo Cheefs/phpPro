@@ -3,7 +3,6 @@
 namespace app\models;
 
 use app\services\DB;
-use app\helpers\StringConvertHelper;
 
 abstract class Model {
     protected $id;
@@ -69,7 +68,7 @@ abstract class Model {
 
         if (is_null($this->id)) {
             $keys = implode(',', $params['keys']);
-            $fields = implode(',', $fields);
+            $fields = $this->getFieldsToInsert($fields);
             $sql = "INSERT INTO {$table} ({$fields}) VALUES ({$keys})";
         } else {
             $keys = $this->getKeysToUpdate($fields);
@@ -98,10 +97,18 @@ abstract class Model {
      * @param $params
      * @return string
      */
-    private function getKeysToUpdate($params) {
+    private function getKeysToUpdate(array $params) {
         $fields = [];
         foreach ($params as $k=>$v) {
-            $fields [] = "$v=:$v";
+            $fields [] = "`$v`=:$v";
+        }
+        return implode(',', $fields);
+    }
+
+    private function getFieldsToInsert(array $params) {
+        $fields = [];
+        foreach ($params as $k=>$v) {
+            $fields [] = "`$v`";
         }
         return implode(',', $fields);
     }
@@ -115,25 +122,10 @@ abstract class Model {
         $fields = get_object_vars($this);
         foreach ($fields as $k=>$v) {
             if ($k !== 'id' && $k !== 'db') {
-                $result [] = $k;
+                $result [] = "$k";
             }
         }
         return $result;
-    }
-
-    /**
-     * Если мы захотим заполнить наш обьект данными которые достали с базы,
-     * например нашли пользователя, и заполнили обьект его полями
-     * @param $data array Массив параметров которые пришли с базы данных
-     */
-    public function load($data) {
-        if ($data) {
-            $fields = $this->getFieldLists();
-            $data = StringConvertHelper::snakeCaseToCamelCase($data);
-            foreach ($fields as $k => $v) {
-                $this->$k = $data[$k] ?? null;
-            }
-        }
     }
 
     /**
