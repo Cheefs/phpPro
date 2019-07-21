@@ -16,31 +16,30 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `users`
+-- Table structure for table `feedback`
 --
 
-DROP TABLE IF EXISTS `users`;
+DROP TABLE IF EXISTS `feedback`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
  SET character_set_client = utf8mb4 ;
-CREATE TABLE `users` (
+CREATE TABLE `feedback` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `username` varchar(45) NOT NULL,
-  `password` varchar(45) NOT NULL,
-  `name` varchar(45) DEFAULT NULL,
-  `email` varchar(45) DEFAULT NULL,
+  `text` varchar(45) NOT NULL,
+  `user_name` varchar(45) NOT NULL,
+  `product_id` int(11) NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `id_UNIQUE` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `users`
+-- Dumping data for table `feedback`
 --
 
-LOCK TABLES `users` WRITE;
-/*!40000 ALTER TABLE `users` DISABLE KEYS */;
-INSERT INTO `users` VALUES (1,'admin','21232f297a57a5a743894a0e4a801fc3','admin','smtptest22@mail.ru'),(2,'cheef','b371f162f487ee94ef6a4bbc3bde06e0','cheef2','cheefst@gmail.com'),(3,'1234','81dc9bdb52d04dc20036dbd8313ed055','1234Namer','1234@mail.ru'),(4,'1234','81dc9bdb52d04dc20036dbd8313ed055','1234Namer','1234@mail.ru');
-/*!40000 ALTER TABLE `users` ENABLE KEYS */;
+LOCK TABLES `feedback` WRITE;
+/*!40000 ALTER TABLE `feedback` DISABLE KEYS */;
+INSERT INTO `feedback` VALUES (1,'test','test',0),(2,'test2','test2',0),(13,'NewNOT464646464fgfgfgfgfgf','NOT NEW554',2),(15,'343434343','3w455',1),(16,'fgfgfgfg','fgfgfg',2),(20,'3','Test',2);
+/*!40000 ALTER TABLE `feedback` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -52,4 +51,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2019-07-14 11:16:07
+-- Dump completed on 2019-07-17 21:29:52

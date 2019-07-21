@@ -1,7 +1,5 @@
 <?php
 
-define('ROOT', $_SERVER['DOCUMENT_ROOT'].'/..');
-
 class Autoload {
     const APP_NAME = 'app';
     const FILE_EXT = '.php';
@@ -23,8 +21,9 @@ class Autoload {
      * @return mixed
      */
     protected function setPath($nameSpace) {
+        $root = $_SERVER['DOCUMENT_ROOT'] .'/..';
         $nameSpace = $this->replaceDirSeparator($nameSpace);
-        return str_replace($this::APP_NAME, ROOT, $nameSpace);
+        return str_replace($this::APP_NAME, $root, $nameSpace);
     }
 
     /**
