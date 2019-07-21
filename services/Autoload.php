@@ -1,15 +1,12 @@
 <?php
 
 class Autoload {
-    const APP_NAME = 'app';
-    const FILE_EXT = '.php';
-
     /**
      * Подключение файла
      * @param $className
      */
     public function loadClass($className) {
-        $file = $this->setPath($className).$this::FILE_EXT;
+        $file = $this->setPath($className).FILE_EXT;
         if (file_exists($file)) {
             include $file;
         }
@@ -23,7 +20,7 @@ class Autoload {
     protected function setPath($nameSpace) {
         $root = $_SERVER['DOCUMENT_ROOT'] .'/..';
         $nameSpace = $this->replaceDirSeparator($nameSpace);
-        return str_replace($this::APP_NAME, $root, $nameSpace);
+        return str_replace(APP_NAME, $root, $nameSpace);
     }
 
     /**

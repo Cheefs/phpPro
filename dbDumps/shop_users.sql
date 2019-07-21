@@ -34,7 +34,7 @@ CREATE TABLE `users` (
   `is_guest` varchar(45) NOT NULL DEFAULT '1',
   PRIMARY KEY (`id`),
   UNIQUE KEY `id_UNIQUE` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -43,7 +43,7 @@ CREATE TABLE `users` (
 
 LOCK TABLES `users` WRITE;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
-INSERT INTO `users` VALUES (1,'admin','21232f297a57a5a743894a0e4a801fc3','smtptest22@mail.ru','Admin','Adminov','Adminovich','454545','0'),(2,'cheef','b371f162f487ee94ef6a4bbc3bde06e0','cheefst@gmail.com','Cheef','Cheefsky','Cheefov',NULL,'0'),(3,'1234','81dc9bdb52d04dc20036dbd8313ed055','1234@mail.ru','UPDATE','4321','3214','UPDATE','0'),(5,'update_test','86a109d26a3b8c57b6d28bf83e3c3827','test','TEST','TESTOVI4','SECOND   NAME','none',''),(7,'test','098f6bcd4621d373cade4e832627b4f6','test','TEST','TESTOVI4','TESTOV','none',''),(8,'test','098f6bcd4621d373cade4e832627b4f6','test','TEST','TESTOVI4','TESTOV','none','');
+INSERT INTO `users` VALUES (1,'admin','21232f297a57a5a743894a0e4a801fc3','smtptest22@mail.ru','Admin','Adminov','Adminovich','454545','0'),(2,'cheef','b371f162f487ee94ef6a4bbc3bde06e0','cheefst@gmail.com','Cheef','Cheefsky','Cheefov',NULL,'0'),(3,'1234','81dc9bdb52d04dc20036dbd8313ed055','1234@mail.ru','UPDATE','4321','3214','UPDATE','0'),(15,'new','new',NULL,'First','LastName  ','Second','UPDATE',''),(16,'cheef','1',NULL,'1','21',NULL,NULL,'');
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -56,4 +56,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2019-07-17 21:29:53
+-- Dump completed on 2019-07-21 11:57:08

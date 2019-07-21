@@ -1,6 +1,6 @@
 <?php
 
-namespace app\traits;
+namespace app\common\traits;
 
 trait TSingleton {
     private static $items;
