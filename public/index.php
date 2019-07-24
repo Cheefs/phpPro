@@ -1,36 +1,23 @@
 <?php
 
-use app\models\User;
-use app\models\Product;
-include $_SERVER['DOCUMENT_ROOT'] .'/../services/Autoload.php';
+include $_SERVER['DOCUMENT_ROOT'] .'/../common/Constants.php';
+include AUTOLOAD;
+include TRANSLATE;
+
 spl_autoload_register([new Autoload(), 'loadClass']);
 
+$controller = $_GET['c']?? 'default';
+$action = $_GET['a']?? 'index';
 
-//$user = new User();
-//$user->first_name = 'TEST';
-//$user->last_name = 'TESTOVI4';
-//$user->second_name = 'TESTOV';
-//$user->email = 'test';
-//$user->phone = 'none';
-//$user->setUserName('test');
-//$user->setPassword('test');
-//$user->save();
+$controllerClass = CONTROLLERS_PATH.ucfirst($controller).CONTROLLER;
 
-//$tmpUser = $user->find(5);
-//$tmpUser->setUserName('update_test');
-//$tmpUser->second_name= 'SECOND   NAME';
-//$tmpUser->setPassword('update_test');
-//$tmpUser->save();
-//$tmpUser->delete();
+if (class_exists($controllerClass)) {
+    $controller = new $controllerClass();
+    $page = $controller->run($action, $_GET['id']);
 
-$product = new Product();
-$product = $product->find(11);
-$product->name = 'UPDATE';
-$product->price = 50;
-$product->material = 'UPDATE';
-$product->brand = 'UPDATE';
-$product->photo = 'UPDATE';
-$product->desc = 'UPDATE';
-$product->save();
+    echo $page;
+} else {
+    header('Location: /');
+}
 
 ?>

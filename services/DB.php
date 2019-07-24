@@ -4,15 +4,14 @@ namespace app\services;
 
 use PDO;
 use app\services\interfaces\IDB;
-use app\traits\TSingleton;
+use app\common\traits\TSingleton;
 
 /**
  * @property PDO $connect
  * @property array $config
  *
 */
-class DB implements IDB {
-
+class DB implements IDB{
     use TSingleton;
 
     private $connect = null;
@@ -31,12 +30,15 @@ class DB implements IDB {
     public function getConnect() {
         if (is_null($this->connect)) {
             $this->connect = new PDO(
-              $this->getDsn(),
-              $this->config['userName'],
-              $this->config['password']
+                $this->getDsn(),
+                $this->config['userName'],
+                $this->config['password']
             );
 
-            $this->connect->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
+            $this->connect->setAttribute(
+                PDO::ATTR_DEFAULT_FETCH_MODE,
+                PDO::FETCH_ASSOC
+            );
         }
         return $this->connect;
     }
@@ -59,9 +61,12 @@ class DB implements IDB {
      * @param string $class
      * @return \PDOStatement
      */
-    private function query(string $class, string $sql, array $params = []) {
+    private function query(string $sql, array $params = [], string $class = 'Model') {
         $PDOStatement = $this->getConnect()->prepare($sql);
-        $PDOStatement->setFetchMode(PDO::FETCH_CLASS, $class );
+        $PDOStatement->setFetchMode(
+            PDO::FETCH_CLASS,
+            $class
+        );
         $PDOStatement->execute($params);
         return $PDOStatement;
     }
@@ -70,28 +75,36 @@ class DB implements IDB {
      * @param string $sql
      * @param array $params
      * @param string $class
-     * @return mixed
+     * @return \PDOStatement
      */
-    public function find(string $class, string $sql, array $params = []) {
-        return $this->query($class, $sql, $params)->fetch()?? null;
+    public function find(string $sql, string $class = null, array $params = []) {
+        $PDOStatement = $this->query($sql, $params, $class);
+        return $PDOStatement->fetch();
     }
 
     /**
      * @param string $sql
-     * @param string $class
      * @param array $params
+     * @param string $class
      * @return array
      */
-    public function findAll(string $class, string $sql, array $params = []) {
-        return $this->query($class, $sql, $params)->fetchAll()?? [];
+    public function findAll(string $sql, string $class = null, array $params = []) {
+        $PDOStatement = $this->query($sql, $params, $class);
+        return $PDOStatement->fetchAll();
     }
 
     /**
      * @param string $sql
-     * @param string $class
      * @param array $params
      */
-    public function execute(string $class, string $sql, array $params = []) {
-        $this->query($class, $sql, $params);
+    public function execute(string $sql, array $params = []) {
+        $this->query($sql, $params);
+    }
+
+    /**
+     * @return string
+     */
+    public function lastInsertId(){
+        return $this->getConnect()->lastInsertId();
     }
 }

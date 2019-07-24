@@ -5,7 +5,6 @@ namespace app\helpers;
  * Вспомогательный класс, который будет хранить функции для работы с строками
  */
 class StringConvertHelper {
-
     /**
      * Перебор всех входяших параметров, и конвертация их в camelCase
      * @param array $data

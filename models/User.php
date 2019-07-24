@@ -7,6 +7,7 @@ namespace app\models;
  * @property string $second_name
  * @property string $email
  * @property string $phone
+ *
 */
 class User extends Model {
     protected $username;
@@ -23,7 +24,7 @@ class User extends Model {
     /**
      * @return mixed|string
      */
-    public function tableName() {
+    public static function tableName() {
         return 'users';
     }
 
@@ -32,6 +33,10 @@ class User extends Model {
      */
     public function setUserName(string $username) {
         $this->username = $username;
+    }
+
+    public function getUserName(){
+        return $this->username;
     }
 
     /**
@@ -48,9 +53,14 @@ class User extends Model {
         return $this->is_guest;
     }
 
+    /**
+     * Получение корзины пользователя
+     * @return array
+     */
     public function getCart() {
-        $id = $this->getUserId();
-        /// Select * from cart Where user_id = $id
+        return Cart::findAll([
+            'user_id' => $this->id,
+        ]);
     }
 
     /**

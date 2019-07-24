@@ -4,46 +4,74 @@ namespace app\models;
 
 use app\services\DB;
 
+/**
+ * @property $id
+*/
+
 abstract class Model {
     protected $id;
-    private $db;
 
-    const HTML_SPACE = '&nbsp;';
-    const MODE_INSERT = 0;
-    const MODE_UPDATE = 1;
-
-    public function getUserId() {
+    public function getId() {
         return $this->id;
-    }
-
-    public function __construct() {
-        $this->db = DB::getInstance();
     }
 
     /**
      * Функция для установки названия таблици базы данных для класса
      * @return mixed
      */
-    public abstract function tableName();
+    public static abstract function tableName();
 
     /**
-     * @param int $id
-     * @return self
+     * Заполнение модели параметрами
+     * @param array $data
      */
-    public function find(int $id) {
-        $table = $this->tableName();
+    public function load(array $data) {
+        foreach ($data as $k=>$v) {
+            if (!is_null($v) && trim($v) !== '') {
+                $this->$k = $v;
+            }
+        }
+    }
+    /**
+     * @param int $id
+     * @return static::class
+     */
+    public static function find(int $id) {
+        $table = static::tableName();
         $sql = "SELECT * FROM {$table} WHERE id = :id";
-        return $this->db->find(static::class, $sql, [':id' => $id]);
+        return DB::getInstance()->find($sql, get_called_class() , [':id' => $id]);
     }
 
     /**
      * Поиск всех записей в таблице
+     * @param array $params
      * @return array
      */
-    public function findAll() {
-        $table = $this->tableName();
-        $sql = "SELECT * FROM {$table}";
-        return $this->db->findAll(static::class, $sql);
+    public static function findAll(array $params = []) {
+        if (count($params)) {
+            $str = self::findConditions($params);
+        }
+        $table = static::tableName();
+        $sql = "SELECT * FROM {$table}" . ( $str ?? '' );
+        return DB::getInstance()->findAll($sql, get_called_class(), $params);
+    }
+
+    /**
+     * Поиск записей по условию
+     * @param $params
+     * @return string
+     */
+    private static function findConditions($params) {
+        $result = ' WHERE ';
+        $paramsCount = count($params);
+        $counter = 0;
+        foreach ($params as $k => $v) {
+            $counter++;
+            $prefix = $counter < $paramsCount ? ' AND ' : '';
+            $result .= "`{$k}` = :{$k}{$prefix}" ;
+        }
+
+        return $result;
     }
 
     /**
@@ -53,7 +81,7 @@ abstract class Model {
         if (!is_null($this->id)) {
             $table = $this->tableName();
             $sql = "DELETE FROM {$table} WHERE id=:id";
-            $this->db->execute(static::class, $sql, [':id' => $this->id]);
+            DB::getInstance()->execute($sql, [':id' => $this->id]);
         }
     }
 
@@ -62,78 +90,39 @@ abstract class Model {
      */
     public function save() {
         $table = $this->tableName();
-        $fields = $this->getFieldLists();
         $params = $this->prepareData();
-        $values = $params['values'];
-
         if (is_null($this->id)) {
-            $keys = implode(',', $params['keys']);
-            $fields = $this->getFieldsToInsert($fields);
+            $fields = implode(',', $params['keys']);
+            $keys = implode(',', array_keys($params['keys']));
             $sql = "INSERT INTO {$table} ({$fields}) VALUES ({$keys})";
+            DB::getInstance()->execute($sql, $params['values']);
+            $this->id = DB::getInstance()->lastInsertId();
         } else {
-            $keys = $this->getKeysToUpdate($fields);
+            $keys = implode(',', $params['keys']);
             $sql = "UPDATE $table SET {$keys} WHERE id={$this->id}";
+            DB::getInstance()->execute($sql, $params['values']);
         }
-
-        $this->db->execute(static::class, $sql, $values);
     }
 
     /**
-     * Подготовка полей для более удобного insert или update
+     * Подготовка полей для insert или update
      * @return array
      */
     private function prepareData() {
-        $fields = $this->getFieldLists();
-        $exitParams = [];
-        foreach ($fields as $k) {
-            $exitParams['keys'][] = ":$k";
-            $exitParams['values']["$k"] = $this->$k;
-        }
-        return $exitParams;
-    }
-
-    /**
-     * Подготовка строки запороса для update
-     * @param $params
-     * @return string
-     */
-    private function getKeysToUpdate(array $params) {
-        $fields = [];
-        foreach ($params as $k=>$v) {
-            $fields [] = "`$v`=:$v";
-        }
-        return implode(',', $fields);
-    }
-
-    private function getFieldsToInsert(array $params) {
-        $fields = [];
-        foreach ($params as $k=>$v) {
-            $fields [] = "`$v`";
-        }
-        return implode(',', $fields);
-    }
-
-    /**
-     * Получение всех свойств класса
-     * @return array
-     */
-    private function getFieldLists() {
-        $result = [];
+        $res = [];
         $fields = get_object_vars($this);
-        foreach ($fields as $k=>$v) {
-            if ($k !== 'id' && $k !== 'db') {
-                $result [] = "$k";
+        $isUpdate = (bool)$this->id;
+
+        foreach ($fields as $k => $v) {
+            if ($k != 'id') {
+                if ( $isUpdate ) {
+                    $res['keys'][":$k"]= "`$k` = :$k";
+                } else {
+                    $res['keys'][":$k"]= "`$k`";
+                }
+                $res['values'] ["$k"] = $this->$k;
             }
         }
-        return $result;
-    }
-
-    /**
-     * Название класса
-     * @return mixed
-     */
-    public static function className() {
-        $class = explode( '\\', static::class);
-        return $class[count($class) - 1];
+        return $res;
     }
 }
