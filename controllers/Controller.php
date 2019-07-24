@@ -3,14 +3,22 @@
 namespace app\controllers;
 
 use app\helpers\Helper;
+use app\services\interfaces\IRenderService;
+use Translate;
 
 /**
  * Базоый контроллер который будет хранить общее поведение для всех контроллеров
+ * @property IRenderService $renderer
 */
-class Controller {
+abstract class Controller {
     const ACTION = 'action';
     const CONTROLLER = 'Controller';
     protected $default = 'default';
+    protected $renderer;
+
+    public function __construct($renderer) {
+        $this->renderer = $renderer;
+    }
 
     public function run(string $action = null, int $id = null) {
         if ($action) {
@@ -48,26 +56,18 @@ class Controller {
      */
     protected function render(string $view, array $params = []) {
         $viewFolder = $this->getControllerName();
-        $content = $this->renderTemplate(
+        return $this->renderTemplate(
             $viewFolder.DIRECTORY_SEPARATOR.$view,
             $params
         );
-
-        return $this->renderTemplate('layouts/main',[
-           'content' => $content
-        ]);
     }
 
     /**
      * @param string $template
      * @param array $params
-     * @return false|string
      */
     protected function renderTemplate(string $template, array $params = []) {
-        ob_start();
-        extract($params);
-        include $_SERVER['DOCUMENT_ROOT'].'/../views/'. $template .'.php';
-        return ob_get_clean();
+       return $this->renderer->renderTmpl($template, $params);
     }
 
     /**
@@ -84,7 +84,8 @@ class Controller {
      */
     protected function notFound() {
       return $this->render('../common/error',[
-         'message' => '404 Not Found'
+          'message' => '404 Not Found',
+          'translate' => new Translate()
       ]);
     }
 

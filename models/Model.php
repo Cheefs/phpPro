@@ -31,6 +31,8 @@ abstract class Model {
                 $this->$k = $v;
             }
         }
+
+
     }
     /**
      * @param int $id
@@ -99,7 +101,9 @@ abstract class Model {
             $this->id = DB::getInstance()->lastInsertId();
         } else {
             $keys = implode(',', $params['keys']);
+
             $sql = "UPDATE $table SET {$keys} WHERE id={$this->id}";
+
             DB::getInstance()->execute($sql, $params['values']);
         }
     }
@@ -114,14 +118,13 @@ abstract class Model {
         $isUpdate = (bool)$this->id;
 
         foreach ($fields as $k => $v) {
-            if ($k != 'id') {
-                if ( $isUpdate ) {
-                    $res['keys'][":$k"]= "`$k` = :$k";
-                } else {
-                    $res['keys'][":$k"]= "`$k`";
-                }
-                $res['values'] ["$k"] = $this->$k;
+            if ($k == 'id') continue;
+            if ( $isUpdate ) {
+                $res['keys'][":$k"]= "`$k` = :$k";
+            } else {
+                $res['keys'][":$k"]= "`$k`";
             }
+            $res['values'] ["$k"] = $this->$k;
         }
         return $res;
     }
