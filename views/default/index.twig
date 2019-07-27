@@ -1,0 +1,12 @@
+{% extends "layouts/main.twig" %}
+
+{% block content %}
+    <nav class="nav">
+        <a class="nav__btn" href="?c=users">
+            {{ translate.t('ru', 'to users')  }}
+        </a>
+        <a class="nav__btn" href="?c=products">
+            {{ translate.t('ru', 'to products') }}
+        </a>
+    </nav>
+{% endblock %}

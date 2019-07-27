@@ -3,13 +3,16 @@
 namespace app\controllers;
 
 use app\models\Product;
+use Translate;
 
 class ProductsController extends Controller {
 
     public function actionIndex() {
         $products = Product::findAll();
         return $this->render('index', [
-            'products' => $products
+            'products' => $products,
+            'controller' => $this->getControllerName(),
+            'translate' => new Translate(),
         ]);
     }
 
@@ -18,7 +21,9 @@ class ProductsController extends Controller {
             $product = Product::find($id);
             if ($product) {
                 return $this->render('view', [
-                    'product' => $product
+                    'product' => $product,
+                    'controller' => $this->getControllerName(),
+                    'translate' => new Translate(),
                 ]);
             }
         }

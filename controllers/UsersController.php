@@ -3,6 +3,7 @@
 namespace app\controllers;
 
 use app\models\User;
+use Translate;
 
 class UsersController extends Controller {
 
@@ -13,7 +14,9 @@ class UsersController extends Controller {
     public function actionIndex() {
         $users = User::findAll();
         return $this->render('index', [
-            'users' => $users
+            'users' => $users,
+            'translate' => new Translate(),
+            'controller' => $this->getControllerName()
         ]);
     }
 
@@ -25,11 +28,13 @@ class UsersController extends Controller {
     public function actionView($id) {
         if (!is_null($id) && is_numeric($id)) {
             $user = User::find($id);
-            $cart = $user->getCart();
             if ($user) {
+                $cart = $user->getCart();
                 return $this->render('view', [
                     'user' => $user,
-                    'cart' => $cart
+                    'cart' => $cart,
+                    'controller' => $this->getControllerName(),
+                    'translate' => new Translate(),
                 ]);
             }
         }
@@ -56,7 +61,9 @@ class UsersController extends Controller {
     public function actionSave($id = null) {
         $user = $id? User::find($id) : new User();
 
-        if (count($_POST)) {
+
+        if ($_SERVER['REQUEST_METHOD'] == POST && count($_POST)) {
+//            var_dump($_POST); die();
             $user->load($_POST);
             $user->save();
             $this->redirect('index');
@@ -64,6 +71,8 @@ class UsersController extends Controller {
 
         return $this->render('form', [
             'user' => $user,
+            'translate' => new Translate(),
+            'controller' => $this->getControllerName(),
         ]);
     }
 }
