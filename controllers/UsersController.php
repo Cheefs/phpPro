@@ -2,7 +2,8 @@
 
 namespace app\controllers;
 
-use app\models\User;
+use app\models\entities\User;
+use app\models\repositories\UserRepository;
 use Translate;
 
 class UsersController extends Controller {
@@ -12,10 +13,10 @@ class UsersController extends Controller {
      * @return false|string
      */
     public function actionIndex() {
-        $users = User::findAll();
+        $users = (new UserRepository)->findAll();
+
         return $this->render('index', [
             'users' => $users,
-            'translate' => new Translate(),
             'controller' => $this->getControllerName()
         ]);
     }
@@ -27,14 +28,11 @@ class UsersController extends Controller {
      */
     public function actionView($id) {
         if (!is_null($id) && is_numeric($id)) {
-            $user = User::find($id);
+            $user = (new UserRepository)->find($id);
             if ($user) {
-                $cart = $user->getCart();
                 return $this->render('view', [
                     'user' => $user,
-                    'cart' => $cart,
                     'controller' => $this->getControllerName(),
-                    'translate' => new Translate(),
                 ]);
             }
         }
@@ -46,9 +44,10 @@ class UsersController extends Controller {
      * @param $id
      */
     public function actionDelete($id) {
-        $user = User::find($id);
+        $repository = new UserRepository();
+        $user = $repository->find($id);
         if ($user) {
-            $user->delete();
+            $repository->delete($user);
         }
         $this->redirect('index');
     }
@@ -59,19 +58,17 @@ class UsersController extends Controller {
      * @return false|string
      */
     public function actionSave($id = null) {
-        $user = $id? User::find($id) : new User();
-
+        $repository = new UserRepository();
+        $user = $id? $repository->find($id): new User();
 
         if ($_SERVER['REQUEST_METHOD'] == POST && count($_POST)) {
-//            var_dump($_POST); die();
             $user->load($_POST);
-            $user->save();
-            $this->redirect('index');
+            $repository->save($user);
+            return $this->redirect('index');
         }
 
         return $this->render('form', [
             'user' => $user,
-            'translate' => new Translate(),
             'controller' => $this->getControllerName(),
         ]);
     }

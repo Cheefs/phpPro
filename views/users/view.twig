@@ -3,7 +3,7 @@
 {% block content %}
 <nav class="nav">
     <a class="nav__btn" href="/">{{ translate.t('ru', 'home') }}</a>
-    <a class="nav__btn" href="?c={{ controller }}&a=index">
+    <a class="nav__btn" href="/{{ controller }}">
         {{ translate.t('ru', 'back') }}
     </a>
 </nav>
@@ -13,13 +13,13 @@
        <span class="text_bold">
            {{ translate.t('ru', 'id') }}:
        </span>
-       <span> {{ user.getId() }}</span>
+       <span> {{ user.id }}</span>
     </div>
     <div>
         <span class="text_bold">
             {{ translate.t('ru', 'username') }}:
         </span>
-        <span> {{ user.getUserName() }} </span>
+        <span> {{ user.username}} </span>
     </div>
     <div>
         <span class="text_bold">
@@ -52,37 +52,5 @@
         <span> {{ user.phone }}</span>
     </div>
 </div>
-<div>
 
-{% if cart != null %}
-    <table class="table">
-        <caption>{{ translate.t('ru', 'cart products') }}</caption>
-        <thead class="table__head">
-        <tr class="head__row">
-            <th class="head__cell">{{ translate.t('ru', 'id') }}</th>
-            <th class="head__cell">{{ translate.t('ru', 'name') }}</th>
-            <th class="head__cell">{{ translate.t('ru', 'price') }}</th>
-            <th class="head__cell">{{ translate.t('ru', 'count') }}</th>
-            <th class="head__cell">{{ translate.t('ru', 'photo') }}</th>
-        </tr>
-        </thead>
-        <tbody>
-        {% for item in cart %}
-           {% set productInfo = item.getProduct(item.product_id) %}
-            <tr class="table__row" data-href="?c=products&a=view&id={{ item.getId() }}">
-                <td class="table__cell">{{ item.getId() }}</td>
-                <td class="table__cell">{{ productInfo.name }}</td>
-                <td class="table__cell">{{ productInfo.price }} x 1</td>
-                <td class="table__cell">{{ item.count }}</td>
-                <td class="table__cell">
-                  <img class="product__photo" src="/assets/{{ productInfo.photo }}" alt="product-photo">
-                </td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
-    {% else %}
-        <h3 class="text_center"> {{ translate.t('ru', 'cart is empty!') }} </h3>
-    {% endif %}
-</div>
 {% endblock %}

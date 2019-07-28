@@ -1,6 +1,8 @@
 <?php
 
-namespace app\models;
+
+namespace app\models\entities;
+
 /**
  * @property string $name
  * @property string $photo
@@ -8,8 +10,9 @@ namespace app\models;
  * @property string $brand
  * @property string $material
  * @property string $desc
-*/
-class Product extends Model {
+ */
+class Product extends Entity {
+    private $id;
     public $name;
     public $photo;
     public $price;
@@ -18,10 +21,10 @@ class Product extends Model {
     public $desc;
 
     /**
-     * Функция для установки названия таблици базы данных для класса
      * @return mixed
      */
-    public static function tableName() {
-        return 'products';
+    public function getId() {
+        return $this->id;
     }
+
 }

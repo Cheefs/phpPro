@@ -5,17 +5,22 @@ include AUTOLOAD;
 include TRANSLATE;
 
 use app\services\TwigRenderService;
+use app\services\Request;
+use app\services\Session;
 
-$controller = $_GET['c']?? 'default';
-$action = $_GET['a']?? 'index';
+$request = new Request();
+$session = new Session([
+    Session::USER_ID => 1, // Так как авторизация не реализована, а для работы корзины нужен пользоатель, по умолчанию зададим id
+]);
+
+$controller = $request->getControllerName()?: 'default';
+$action = $request->getActionName()?: 'index';
 
 $controllerClass = CONTROLLERS_PATH.ucfirst($controller).CONTROLLER;
 
 if (class_exists($controllerClass)) {
-    $controller = new $controllerClass(new TwigRenderService());
-    $page = $controller->run($action, $_GET['id']);
-
-    echo $page;
+    $controller = new $controllerClass(new TwigRenderService(), $request, $session);
+    echo  $controller->run($action, $_GET['id']);
 } else {
     header('Location: /');
 }

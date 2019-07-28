@@ -1,47 +1,31 @@
 <?php
 
-namespace app\models;
+namespace app\models\repositories;
 
+use app\models\entities\Entity;
 use app\services\DB;
 
 /**
  * @property $id
 */
 
-abstract class Model {
-    protected $id;
-
-    public function getId() {
-        return $this->id;
-    }
-
+abstract class Repository {
     /**
      * Функция для установки названия таблици базы данных для класса
      * @return mixed
      */
     public static abstract function tableName();
 
-    /**
-     * Заполнение модели параметрами
-     * @param array $data
-     */
-    public function load(array $data) {
-        foreach ($data as $k=>$v) {
-            if (!is_null($v) && trim($v) !== '') {
-                $this->$k = $v;
-            }
-        }
+    abstract protected function getEntityName();
 
-
-    }
     /**
      * @param int $id
-     * @return static::class
+     * @return Entity
      */
-    public static function find(int $id) {
+    public function find(int $id) {
         $table = static::tableName();
         $sql = "SELECT * FROM {$table} WHERE id = :id";
-        return DB::getInstance()->find($sql, get_called_class() , [':id' => $id]);
+        return DB::getInstance()->find($sql, $this->getEntityName(), [':id' => $id]);
     }
 
     /**
@@ -49,13 +33,13 @@ abstract class Model {
      * @param array $params
      * @return array
      */
-    public static function findAll(array $params = []) {
+    public function findAll(array $params = []) {
         if (count($params)) {
             $str = self::findConditions($params);
         }
         $table = static::tableName();
         $sql = "SELECT * FROM {$table}" . ( $str ?? '' );
-        return DB::getInstance()->findAll($sql, get_called_class(), $params);
+        return DB::getInstance()->findAll($sql, $this->getEntityName(), $params);
     }
 
     /**
@@ -63,7 +47,7 @@ abstract class Model {
      * @param $params
      * @return string
      */
-    private static function findConditions($params) {
+    private function findConditions($params) {
         $result = ' WHERE ';
         $paramsCount = count($params);
         $counter = 0;
@@ -72,50 +56,50 @@ abstract class Model {
             $prefix = $counter < $paramsCount ? ' AND ' : '';
             $result .= "`{$k}` = :{$k}{$prefix}" ;
         }
-
         return $result;
     }
 
     /**
      * Удаление обьекта данных из базы
+     * @param $entity Entity
      */
-    public function delete() {
-        if (!is_null($this->id)) {
+    public function delete(Entity $entity) {
+        if (!is_null($entity->id)) {
             $table = $this->tableName();
             $sql = "DELETE FROM {$table} WHERE id=:id";
-            DB::getInstance()->execute($sql, [':id' => $this->id]);
+            DB::getInstance()->execute($sql, [':id' => $entity->id]);
         }
     }
 
     /**
      * Сохранение данных в базу
+     *  @param $entity Entity
      */
-    public function save() {
+    public function save(Entity $entity) {
         $table = $this->tableName();
-        $params = $this->prepareData();
-        if (is_null($this->id)) {
+        $params = $this->prepareData($entity);
+        if (is_null($entity->id)) {
             $fields = implode(',', $params['keys']);
             $keys = implode(',', array_keys($params['keys']));
             $sql = "INSERT INTO {$table} ({$fields}) VALUES ({$keys})";
             DB::getInstance()->execute($sql, $params['values']);
-            $this->id = DB::getInstance()->lastInsertId();
+            $entity->id = DB::getInstance()->lastInsertId();
         } else {
             $keys = implode(',', $params['keys']);
-
-            $sql = "UPDATE $table SET {$keys} WHERE id={$this->id}";
-
+            $sql = "UPDATE $table SET {$keys} WHERE id={$entity->id}";
             DB::getInstance()->execute($sql, $params['values']);
         }
     }
 
     /**
      * Подготовка полей для insert или update
+     * @param Entity $entity
      * @return array
      */
-    private function prepareData() {
+    private function prepareData(Entity $entity) {
         $res = [];
-        $fields = get_object_vars($this);
-        $isUpdate = (bool)$this->id;
+        $fields = get_object_vars($entity);
+        $isUpdate = (bool)$entity->id;
 
         foreach ($fields as $k => $v) {
             if ($k == 'id') continue;
@@ -124,7 +108,7 @@ abstract class Model {
             } else {
                 $res['keys'][":$k"]= "`$k`";
             }
-            $res['values'] ["$k"] = $this->$k;
+            $res['values'] ["$k"] = $entity->$k;
         }
         return $res;
     }

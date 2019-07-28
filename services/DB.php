@@ -63,6 +63,8 @@ class DB implements IDB{
      */
     private function query(string $sql, array $params = [], string $class = 'Model') {
         $PDOStatement = $this->getConnect()->prepare($sql);
+
+
         $PDOStatement->setFetchMode(
             PDO::FETCH_CLASS,
             $class
