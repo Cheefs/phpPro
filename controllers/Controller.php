@@ -20,8 +20,8 @@ use Translate;
 abstract class Controller {
     const ACTION = 'action';
     const CONTROLLER = 'Controller';
+    private $renderer;
     protected $default = 'default';
-    protected $renderer;
     protected $request;
     protected $session;
 
@@ -78,15 +78,17 @@ abstract class Controller {
      * @param array $params
      */
     protected function renderTemplate(string $template, array $params = []) {
+        $params['guest'] = $this->session->get('user_id')? false : true;
        return $this->renderer->renderTmpl($template, $params);
     }
 
     /**
      * @param $action
+     * @param $controller
      * @return true
      */
-    public function redirect($action = null) {
-        $controllerName = $this->getControllerName();
+    public function redirect($action = null, $controller = null) {
+        $controllerName = $controller? $controller : $this->getControllerName();
         $action = $action? '/'.$action : '';
         header("Location: /{$controllerName}{ $action }");
         return true;

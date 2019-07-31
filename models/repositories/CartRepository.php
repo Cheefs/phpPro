@@ -21,12 +21,8 @@ class CartRepository extends Repository {
     public function getTotalCartPrice($items) {
         $total = ['count' => 0, 'price' => 0];
         foreach ($items as $item) {
-            /** @var $product Product
-             *  @var $item Cart
-             */
-            $product = (new ProductRepository())->find($item->product_id);
-            $total['count'] += $item->count;
-            $total['price'] += $item->count * $product->price;
+            $total['count'] += $item['count'];
+            $total['price'] += $item['count'] * $item['price'];
         }
         return $total;
     }

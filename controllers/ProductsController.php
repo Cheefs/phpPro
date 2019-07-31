@@ -2,12 +2,12 @@
 
 namespace app\controllers;
 
-use app\models\entities\Cart;
-use app\models\repositories\CartRepository;
+use app\models\entities\Product;
 use app\models\repositories\ProductRepository;
-use app\services\Session;
 
 class ProductsController extends Controller {
+
+    const PRODUCTS = 'products';
 
     public function actionIndex() {
         $products = (new ProductRepository)->findAll();
@@ -40,19 +40,32 @@ class ProductsController extends Controller {
     }
 
     public function actionBuy(int $id) {
-        $repository = new CartRepository();
-        $user_id = $this->session(Session::USER_ID);
-
-        $cartItem = $repository->findAll(['product_id' => $id, 'user_id' => $user_id])[0];
-        if (!$cartItem) {
-            $cartItem = new Cart();
-            $cartItem->user_id = $user_id;
-            $cartItem->product_id = $id;
-            $cartItem->count = 1;
-        } else {
-            $cartItem->count++;
+        $repository = new ProductRepository();
+        /** @var $product Product */
+        $product = $repository->find($id);
+        if (!$product) {
+            return $this->redirect();
         }
-        $repository->save($cartItem);
+        $products = $this->session->get(self::PRODUCTS);
+
+        if (!isset($products[$id])) {
+            $products[$id] = [
+              'count' => 1,
+              'id' => $product->getId(),
+              'name' => $product->name,
+              'price' => $product->price,
+              'brand' => $product->brand,
+              'material' => $product->material,
+              'desc' => $product->desc,
+              'photo' => $product->photo
+            ];
+        } else {
+            $products[$id]['count']++;
+        }
+
+        $this->session->add([
+            self::PRODUCTS => $products
+        ]);
 
         return $this->redirect();
     }

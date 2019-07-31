@@ -1,0 +1,28 @@
+{% extends "layouts/main.twig" %}
+
+{% block content %}
+    <nav class="nav">
+        <a class="nav__btn" href="/">{{ translate.t('ru', 'home') }}</a>
+    </nav>
+
+    <hr>
+
+    <form class="form" method="post">
+        <label for="userName"> {{ translate.t('ru', 'username') }} </label>
+        <input id="userName" class="input" type="text" name="username">
+
+        <label for="password"> {{ translate.t('ru', 'password') }} </label>
+        <input id="password" class="input" type="password" name="password">
+
+        <button class="btn" type="submit">{{ translate.t('ru', 'login') }}</button>
+    </form>
+
+    <h4 class="text_center">
+        <span>{{ translate.t('ru', 'no account?') }}</span>
+        <span>
+            <a href="/{{ controller }}/register" class="text_marked">{{ translate.t('ru', 'register') }}</a>
+        </span>
+    </h4>
+
+
+{% endblock %}

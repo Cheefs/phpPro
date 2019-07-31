@@ -4,7 +4,6 @@ namespace app\controllers;
 
 use app\models\entities\User;
 use app\models\repositories\UserRepository;
-use Translate;
 
 class UsersController extends Controller {
 

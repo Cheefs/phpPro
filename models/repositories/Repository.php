@@ -2,21 +2,28 @@
 
 namespace app\models\repositories;
 
+use app\main\App;
 use app\models\entities\Entity;
 use app\services\DB;
 
 /**
  * @property $id
+ * @property DB $db
 */
 
 abstract class Repository {
+
+    protected $db;
     /**
      * Функция для установки названия таблици базы данных для класса
      * @return mixed
      */
     public static abstract function tableName();
-
     abstract protected function getEntityName();
+
+    public function __construct(){
+        $this->db = App::call()->db;
+    }
 
     /**
      * @param int $id
@@ -25,7 +32,7 @@ abstract class Repository {
     public function find(int $id) {
         $table = static::tableName();
         $sql = "SELECT * FROM {$table} WHERE id = :id";
-        return DB::getInstance()->find($sql, $this->getEntityName(), [':id' => $id]);
+        return $this->db->find($sql, $this->getEntityName(), [':id' => $id]);
     }
 
     /**
@@ -39,7 +46,18 @@ abstract class Repository {
         }
         $table = static::tableName();
         $sql = "SELECT * FROM {$table}" . ( $str ?? '' );
-        return DB::getInstance()->findAll($sql, $this->getEntityName(), $params);
+        return $this->db->findAll($sql, $this->getEntityName(), $params);
+    }
+
+    /**
+     * @param array $params
+     * @return \PDOStatement
+     */
+    public function findByParams(array $params) {
+        $table = static::tableName();
+        $conditions = $this->findConditions($params);
+        $sql = "SELECT * FROM {$table} {$conditions}";
+        return $this->db->find($sql, $this->getEntityName(), $params);
     }
 
     /**
@@ -67,27 +85,32 @@ abstract class Repository {
         if (!is_null($entity->id)) {
             $table = $this->tableName();
             $sql = "DELETE FROM {$table} WHERE id=:id";
-            DB::getInstance()->execute($sql, [':id' => $entity->id]);
+            $this->db->execute($sql, [':id' => $entity->id]);
         }
     }
 
     /**
      * Сохранение данных в базу
-     *  @param $entity Entity
+     * @param $entity Entity
+     * @return int
      */
     public function save(Entity $entity) {
         $table = $this->tableName();
         $params = $this->prepareData($entity);
+
         if (is_null($entity->id)) {
             $fields = implode(',', $params['keys']);
             $keys = implode(',', array_keys($params['keys']));
             $sql = "INSERT INTO {$table} ({$fields}) VALUES ({$keys})";
-            DB::getInstance()->execute($sql, $params['values']);
-            $entity->id = DB::getInstance()->lastInsertId();
+            $this->db->execute($sql, $params['values']);
+
+            return $entity->id = $this->db->lastInsertId();
         } else {
             $keys = implode(',', $params['keys']);
             $sql = "UPDATE $table SET {$keys} WHERE id={$entity->id}";
-            DB::getInstance()->execute($sql, $params['values']);
+            $this->db->execute($sql, $params['values']);
+
+            return $entity->id;
         }
     }
 

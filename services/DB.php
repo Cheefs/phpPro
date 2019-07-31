@@ -14,15 +14,11 @@ use app\common\traits\TSingleton;
 class DB implements IDB{
     use TSingleton;
 
-    private $connect = null;
-    private $config = [
-        'userName' => 'root',
-        'password' => '',
-        'dbName' => 'shop',
-        'dbHost' => 'localhost',
-        'driver' => 'mysql',
-        'charset' => 'utf8'
-    ];
+    private $config;
+
+    public function __construct($config) {
+        $this->config = $config;
+    }
 
     /**
      * @return PDO
@@ -63,12 +59,11 @@ class DB implements IDB{
      */
     private function query(string $sql, array $params = [], string $class = 'Model') {
         $PDOStatement = $this->getConnect()->prepare($sql);
-
-
         $PDOStatement->setFetchMode(
             PDO::FETCH_CLASS,
             $class
         );
+
         $PDOStatement->execute($params);
         return $PDOStatement;
     }
@@ -79,7 +74,7 @@ class DB implements IDB{
      * @param string $class
      * @return \PDOStatement
      */
-    public function find(string $sql, string $class = null, array $params = []) {
+    public function find($sql, $class = null, $params = []) {
         $PDOStatement = $this->query($sql, $params, $class);
         return $PDOStatement->fetch();
     }
@@ -90,7 +85,7 @@ class DB implements IDB{
      * @param string $class
      * @return array
      */
-    public function findAll(string $sql, string $class = null, array $params = []) {
+    public function findAll($sql, $class = null, $params = []) {
         $PDOStatement = $this->query($sql, $params, $class);
         return $PDOStatement->fetchAll();
     }

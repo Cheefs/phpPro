@@ -16,13 +16,4 @@ class UserRepository extends Repository {
        return User::class;
     }
 
-    /**
-     * Получение корзины пользователя
-     * @return array
-     */
-    public function getCart() {
-        return CartRepository::findAll([
-            'user_id' => $this->id,
-        ]);
-    }
 }
