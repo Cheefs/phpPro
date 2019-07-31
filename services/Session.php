@@ -55,4 +55,15 @@ class Session {
        unset($_SESSION[$key]);
         $this->fill();
     }
+
+    /**
+     * @param string $key
+     * @param string|array $value
+     */
+    public function set(string $key, $value) {
+        if (isset($_SESSION[$key])) {
+            $_SESSION[$key] = $value;
+            $this->fill();
+        }
+    }
 }

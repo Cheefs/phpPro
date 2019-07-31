@@ -1,0 +1,35 @@
+{% extends "layouts/main.twig" %}
+
+{% block content %}
+    <nav class="nav">
+        <a class="nav__btn" href="/">{{ translate.t('ru', 'home') }}</a>
+    </nav>
+
+    <hr>
+
+    <form class="form" method="post">
+        <label for="userName"> {{ translate.t('ru', 'username') }} </label>
+        <input id="userName" class="input" type="text" name="username">
+
+        <label for="password"> {{ translate.t('ru', 'password') }} </label>
+        <input id="password" class="input" type="password" name="password">
+
+        <label for="last_name"> {{ translate.t('ru', 'last name') }} </label>
+        <input id="last_name" class="input" type="text" name="last_name">
+
+        <label for="first_name"> {{ translate.t('ru', 'first name') }} </label>
+        <input id="first_name" class="input" type="text" name="first_name">
+
+        <label for="second_name"> {{ translate.t('ru', 'second_name') }} </label>
+        <input id="second_name" class="input" type="text" name="second_name">
+
+        <label for="email"> {{ translate.t('ru', 'email') }} </label>
+        <input id="email" class="input" type="text" name="email">
+
+        <label for="phone"> {{ translate.t('ru', 'phone') }} </label>
+        <input id="phone" class="input" type="text" name="phone">
+
+        <button class="btn" type="submit">{{ translate.t('ru', 'register') }}</button>
+    </form>
+
+{% endblock %}

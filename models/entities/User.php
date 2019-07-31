@@ -4,6 +4,7 @@
 namespace app\models\entities;
 
 /**
+ * @property int $id
  * @property string $first_name
  * @property string $last_name
  * @property string $second_name
@@ -12,9 +13,9 @@ namespace app\models\entities;
  *
  */
 class User extends Entity {
+    public $id;
     public $username;
     public $password;
-
     public $first_name;
     public $last_name;
     public $second_name;

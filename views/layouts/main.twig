@@ -75,7 +75,11 @@
                     </div>
                 </div>
                 <div class="account__control">
-                    <a href="#" class="my-account-btn">Login</a>
+                    {% if guest == true %}
+                        <a href="/login" class="my-account-btn">{{ translate.t('ru', 'login') }}</a>
+                    {% else %}
+                        <a href="/login/exit" class="my-account-btn">{{ translate.t('ru', 'exit') }}</a>
+                    {% endif %}
                     <i class="fas fa-sign-out-alt btn-logout hide"></i>
                 </div>
             </div>

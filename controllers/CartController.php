@@ -2,41 +2,65 @@
 
 namespace app\controllers;
 
-use app\models\entities\Cart;
+use app\models\entities\Order;
+use app\models\entities\User;
 use app\models\repositories\CartRepository;
-use app\models\repositories\ProductRepository;
-use app\services\Session;
+use app\models\repositories\OrderRepository;
+use app\models\repositories\UserRepository;
 
 class CartController extends Controller {
 
+   const PRODUCT = 'products';
+
    public function actionIndex() {
-       $user_id = $this->session(Session::USER_ID);
-       $repository = new CartRepository();
+       $cartItems = $this->session->get(self::PRODUCT);
+       $cartTotal = (new CartRepository())->getTotalCartPrice($cartItems?? []);
+       $user_id = $this->session->get('user_id');
+
        if ($user_id) {
-           $cartItems = $repository->findAll(['user_id' => $user_id]);
+           $user = (new UserRepository())->find($user_id);
+       }
+       if ($_SERVER['REQUEST_METHOD'] === POST && count($_POST)) {
+           if (isset($user) && !is_null($user) ) {
+               /** @var $user User */
+               $order = new Order([
+                   'user_id' => $user->id,
+                   'fio' => $_POST['fio'],
+                   'price' => $cartTotal['price'],
+                   'email' => $_POST['email'],
+                   'phone' => $_POST['phone'],
+                   'address' => $_POST['address'],
+                   'products_json' => json_encode($cartItems),
+               ]);
+               (new OrderRepository())->save($order);
+               $this->session->remove(self::PRODUCT);
+              return $this->redirect('index', 'products');
+           }
        }
 
        return $this->render('index', [
+           'user' => $user?? null,
            'cartItems' => $cartItems ?? [],
            'controller' => $this->getControllerName(),
-           'productRepository' => new ProductRepository(),
-           'cartTotal' => $repository->getTotalCartPrice($cartItems?? []),
+           'cartTotal' => $cartTotal,
        ]);
    }
 
-   public function actionDelete(int $id) {
-        $repository = new CartRepository();
-        $item = $repository->find($id);
-        /* @var $item Cart */
-        if ($item) {
-            $isLast = $item->isThisLastProduct();
-            if ( !$isLast && !$this->get('all') ) {
-                $item->count--;
-                $repository->save($item);
-            } else {
-                $repository->delete($item);
-            }
-        }
-        return $this->redirect();
+   public function actionDelete( $id) {
+       $cartItems = $this->session->get('products');
+       if(isset($cartItems[$id])) {
+           $item = $cartItems[$id];
+          if ($item['count'] > 1) {
+              $item['count']--;
+              $cartItems[$id] = $item;
+
+          } else {
+              $cartItems = array_filter($cartItems, function ($el) use ($item) {
+                 return $el['id'] != $item['id'];
+              });
+          }
+       }
+       $this->session->set('products', $cartItems);
+       return $this->redirect();
    }
 }

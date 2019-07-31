@@ -9,7 +9,7 @@ use Translate;
 
 class TwigRenderService implements IRenderService {
 
-    public function renderTmpl(string $template, array $params = []) {
+    public function renderTmpl($template, $params = []) {
         $loader = new FilesystemLoader(ROOT.'views');
         $twig = new Environment($loader);
         $params['translate'] = new Translate();

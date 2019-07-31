@@ -10,6 +10,7 @@ namespace app\models\entities;
  * @property string $brand
  * @property string $material
  * @property string $desc
+ * @property int $count
  */
 class Product extends Entity {
     private $id;
@@ -19,6 +20,7 @@ class Product extends Entity {
     public $brand;
     public $material;
     public $desc;
+    public $count;
 
     /**
      * @return mixed
@@ -26,5 +28,4 @@ class Product extends Entity {
     public function getId() {
         return $this->id;
     }
-
 }
