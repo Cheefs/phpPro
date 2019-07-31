@@ -1,14 +1,14 @@
 {% extends 'layouts/main.twig' %}
 {% block content %}
     {% set class = 'required' %}
-    {% if (user.getId() != null) %}
+    {% if (user.id != null) %}
         {% set class = 'disabled' %}
     {% endif %}
 <form method="post" class="form">
     <div class="form__field">
         <label class="label" for="username">{{ translate.t('ru', 'username') }}</label>
         <input id="username" class="input" name="username" type="text" required
-               value="{{ user.getUserName() }}"
+               value="{{ user.username }}"
         >
     </div>
     <div class="form__field">
@@ -57,8 +57,8 @@
             {{ translate.t('ru', 'save') }}
         </button>
         <button type="button" class="form__button cancel"
-            data-href="?c={{ controller }}">
-            {{  translate.t('ru', 'cancel') }}
+            data-href="/{{ controller }}">
+            {{ translate.t('ru', 'cancel') }}
         </button>
     </div>
 </form>

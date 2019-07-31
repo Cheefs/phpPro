@@ -46,6 +46,8 @@
   border-spacing: unset;
   border-collapse: collapse; }
   .table .btn {
+    margin: 5px;
+    display: block;
     cursor: pointer;
     font-size: 18px;
     transition: 0.3s; }

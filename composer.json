@@ -1,10 +1,11 @@
 {
     "require": {
-        "twig/twig": "^2.0"
+        "twig/twig": "^2.0",
+      "ext-pdo": "*"
     },
     "autoload": {
         "psr-4": {
-            "app\\": "\\"
+            "app\\": "./"
         }
     }
 }

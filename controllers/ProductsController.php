@@ -2,28 +2,28 @@
 
 namespace app\controllers;
 
-use app\models\Product;
-use Translate;
+use app\models\entities\Cart;
+use app\models\repositories\CartRepository;
+use app\models\repositories\ProductRepository;
+use app\services\Session;
 
 class ProductsController extends Controller {
 
     public function actionIndex() {
-        $products = Product::findAll();
+        $products = (new ProductRepository)->findAll();
         return $this->render('index', [
             'products' => $products,
             'controller' => $this->getControllerName(),
-            'translate' => new Translate(),
         ]);
     }
 
     public function actionView($id) {
         if (!is_null($id) && is_numeric($id)) {
-            $product = Product::find($id);
+            $product = (new ProductRepository)->find($id);
             if ($product) {
                 return $this->render('view', [
                     'product' => $product,
                     'controller' => $this->getControllerName(),
-                    'translate' => new Translate(),
                 ]);
             }
         }
@@ -31,10 +31,29 @@ class ProductsController extends Controller {
     }
 
     public function actionDelete(int $id) {
-        $product = Product::find($id);
+        $repository = new ProductRepository();
+        $product = $repository->find($id);
         if ($product) {
-            $product->delete();
+            $repository->delete($product);
         }
         $this->redirect('index');
+    }
+
+    public function actionBuy(int $id) {
+        $repository = new CartRepository();
+        $user_id = $this->session(Session::USER_ID);
+
+        $cartItem = $repository->findAll(['product_id' => $id, 'user_id' => $user_id])[0];
+        if (!$cartItem) {
+            $cartItem = new Cart();
+            $cartItem->user_id = $user_id;
+            $cartItem->product_id = $id;
+            $cartItem->count = 1;
+        } else {
+            $cartItem->count++;
+        }
+        $repository->save($cartItem);
+
+        return $this->redirect();
     }
 }
