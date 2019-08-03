@@ -76,16 +76,25 @@ abstract class Controller {
         );
     }
 
+    private function getBaseParams() {
+        $products = $this->session->get('products');
+        $isUserSet = $this->session->get('user_id');
+        $cartTotal = (new CartRepository())->getTotalCartPrice($products?? []);
+
+        return [
+            'guest' => !$isUserSet,
+            'productsTotal' => $cartTotal['count'],
+            'controller' => $this->getControllerName()
+        ];
+    }
+
     /**
      * @param string $template
      * @param array $params
      */
     protected function renderTemplate(string $template, array $params = []) {
-        $products = $this->session->get('products');
-        $cartTotal = (new CartRepository())->getTotalCartPrice($products?? []);
-        $params['productsTotal'] = $cartTotal['count'];
-        $params['guest'] = !$this->session->get('user_id')? true : false;
-       return $this->renderer->renderTmpl($template, $params);
+        $baseParams = $this->getBaseParams();
+        return $this->renderer->renderTmpl($template, array_merge($params, $baseParams));
     }
 
     /**

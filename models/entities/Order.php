@@ -15,10 +15,10 @@ namespace app\models\entities;
 */
 class Order extends Entity {
 
-    const STATUS_PROCESS = 0;
-    const STATUS_SEND = 1;
-    const STATUS_DELIVERED = 2;
-    const STATUS_CANCEL = 3;
+    const STATUS_PROCESS = 1;
+    const STATUS_SEND = 2;
+    const STATUS_DELIVERED = 3;
+    const STATUS_CANCEL = 4;
 
     public $user_id;
     public $fio;

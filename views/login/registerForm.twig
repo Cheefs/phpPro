@@ -1,35 +1,44 @@
 {% extends "layouts/main.twig" %}
 
+{% block promo %}
+    <div class="product-top-panel">
+        <div class="container">
+            <h3 class="top-panel-h3">
+                <a class="breadcrumbs-a" href="/{{ controller }}">Register</a>
+            </h3>
+            <nav class="breadcrumbs">
+                <a class="breadcrumbs-a" href="/">Home</a><span>/</span>
+                <a class="breadcrumbs-a now" href="/{{ controller }}">/Register</a>
+            </nav>
+        </div>
+    </div>
+{% endblock %}
+
 {% block content %}
-    <nav class="nav">
-        <a class="nav__btn" href="/">{{ translate.t('ru', 'home') }}</a>
-    </nav>
+    <div class="margin">
+        <form class="form" method="post">
+            <label for="userName"> {{ translate.t('ru', 'username') }} </label>
+            <input id="userName" class="input" type="text" name="username">
 
-    <hr>
+            <label for="password"> {{ translate.t('ru', 'password') }} </label>
+            <input id="password" class="input" type="password" name="password">
 
-    <form class="form" method="post">
-        <label for="userName"> {{ translate.t('ru', 'username') }} </label>
-        <input id="userName" class="input" type="text" name="username">
+            <label for="last_name"> {{ translate.t('ru', 'last name') }} </label>
+            <input id="last_name" class="input" type="text" name="last_name">
 
-        <label for="password"> {{ translate.t('ru', 'password') }} </label>
-        <input id="password" class="input" type="password" name="password">
+            <label for="first_name"> {{ translate.t('ru', 'first name') }} </label>
+            <input id="first_name" class="input" type="text" name="first_name">
 
-        <label for="last_name"> {{ translate.t('ru', 'last name') }} </label>
-        <input id="last_name" class="input" type="text" name="last_name">
+            <label for="second_name"> {{ translate.t('ru', 'second name') }} </label>
+            <input id="second_name" class="input" type="text" name="second_name">
 
-        <label for="first_name"> {{ translate.t('ru', 'first name') }} </label>
-        <input id="first_name" class="input" type="text" name="first_name">
+            <label for="email"> {{ translate.t('ru', 'email') }} </label>
+            <input id="email" class="input" type="text" name="email">
 
-        <label for="second_name"> {{ translate.t('ru', 'second_name') }} </label>
-        <input id="second_name" class="input" type="text" name="second_name">
+            <label for="phone"> {{ translate.t('ru', 'phone') }} </label>
+            <input id="phone" class="input" type="text" name="phone">
 
-        <label for="email"> {{ translate.t('ru', 'email') }} </label>
-        <input id="email" class="input" type="text" name="email">
-
-        <label for="phone"> {{ translate.t('ru', 'phone') }} </label>
-        <input id="phone" class="input" type="text" name="phone">
-
-        <button class="btn" type="submit">{{ translate.t('ru', 'register') }}</button>
-    </form>
-
+            <button class="btn" type="submit">{{ translate.t('ru', 'register') }}</button>
+        </form>
+    </div>
 {% endblock %}

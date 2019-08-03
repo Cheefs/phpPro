@@ -10,7 +10,7 @@ namespace app\models\entities;
  * @property string $second_name
  * @property string $email
  * @property string $phone
- *
+ * @property int $is_admin
  */
 class User extends Entity {
 
@@ -24,4 +24,5 @@ class User extends Entity {
     public $second_name;
     public $email;
     public $phone;
+    public $is_admin;
 }

@@ -8,16 +8,28 @@ use app\models\repositories\UserRepository;
 class UsersController extends Controller {
 
     /**
-     * Список пользователей
+     * Переход в личный кабинет
      * @return false|string
      */
     public function actionIndex() {
-        $users = (new UserRepository)->findAll();
+        $user_id = $this->session->get('user_id');
+        if (!$user_id) {
+            return $this->returnToLastPage();
+        }
+        /** @var $user User */
+        $user = (new UserRepository)->find($user_id);
 
-        return $this->render('index', [
-            'users' => $users,
-            'controller' => $this->getControllerName()
-        ]);
+        if (!$user) {
+            return $this->returnToLastPage();
+        }
+
+        if (!$user->is_admin) {
+            return $this->render('index', [
+                'user' => $user,
+            ]);
+        } else {
+            return $this->redirect('admin');
+        }
     }
 
     /**
@@ -31,7 +43,6 @@ class UsersController extends Controller {
             if ($user) {
                 return $this->render('view', [
                     'user' => $user,
-                    'controller' => $this->getControllerName(),
                 ]);
             }
         }
@@ -41,6 +52,7 @@ class UsersController extends Controller {
     /**
      * Удаление пользователя из базы
      * @param $id
+     * @return string
      */
     public function actionDelete($id) {
         $repository = new UserRepository();
@@ -48,7 +60,7 @@ class UsersController extends Controller {
         if ($user) {
             $repository->delete($user);
         }
-        $this->redirect('index');
+        return $this->returnToLastPage();
     }
 
     /**
@@ -63,12 +75,11 @@ class UsersController extends Controller {
         if ($_SERVER['REQUEST_METHOD'] == POST && count($_POST)) {
             $user->load($_POST);
             $repository->save($user);
-            return $this->redirect('index');
+            return $this->returnToLastPage();
         }
 
         return $this->render('form', [
             'user' => $user,
-            'controller' => $this->getControllerName(),
         ]);
     }
 }

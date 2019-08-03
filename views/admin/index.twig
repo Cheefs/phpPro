@@ -19,11 +19,16 @@
 <div class="container my-account">
 
     <div class="nav__panel">
-        <div class="nav__element redirect" data-href="/{{ controller }}/orders">ORDERS</div>
-        <div class="nav__element redirect" data-href="/{{ controller }}/users">USERS</div>
-        <div class="nav__element redirect" data-href="/{{ controller }}/products">PRODUCTS</div>
+        <div class="nav__element text_uppercase redirect" data-href="/admin/orders">
+            {{ translate.t('ru', 'orders') }}
+        </div>
+        <div class="nav__element text_uppercase redirect" data-href="/admin/users">
+            {{ translate.t('ru', 'users') }}
+        </div>
+        <div class="nav__element text_uppercase redirect" data-href="/admin/products">
+            {{ translate.t('ru', 'products') }}
+        </div>
     </div>
-
 
     <div class="my-data_container">
         {% block data %}{% endblock %}

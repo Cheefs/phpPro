@@ -1,11 +1,10 @@
 <?php
 
-
 namespace app\controllers;
-
 
 use app\models\entities\Order;
 use app\models\repositories\OrderRepository;
+use app\models\repositories\OrderStatusRepository;
 use app\models\repositories\ProductRepository;
 use app\models\repositories\UserRepository;
 
@@ -33,40 +32,27 @@ class AdminController extends Controller {
      * @return false|string
      */
     public function actionIndex() {
-        $params = [];
-//        if ($id == self::MODE_USERS_LIST ) {
-//            'users' => (new UserRepository())->findAll()
-//
-//        } else if ($id == self::MODE_PRODUCTS_LIST) {
-//            $params ['products'] = (new ProductRepository())->findAll();
-//        } else if ($id == self::MODE_ORDERS_LIST) {
-//            $params ['products'] = (new OrderRepository())->findAll();
-//        }
-//        $params['mode'] = $id;
-        $params['controller'] = $this->getControllerName();
-        return $this->render('index', $params);
+        return $this->render('index');
     }
 
     public function actionUsers() {
-        return $this->render('users', [
-            'orders' => (new OrderRepository())->findAll(),
-            'controller' => $this->getControllerName()
+        return $this->render('users/index', [
+            'users' => (new UserRepository())->findAll(),
+        ]);
+    }
+
+    public function actionProducts() {
+        return $this->render('products/index', [
+            'products' => (new ProductRepository())->findAll(),
         ]);
     }
 
     public function actionOrders() {
-        $orderStatuses = [
-            0 => 'Обрабатывается',
-            1 => 'Отправлен',
-            2 => 'Доставлен',
-            3 => 'Отклонен'
-        ];
-
+        $orderStatuses = (new OrderStatusRepository())->getStatusesArr();
         return $this->render('order/index', [
             'model' => new Order(),
             'orders' => (new OrderRepository())->findAll(),
             'status' => $orderStatuses,
-            'controller' => $this->getControllerName()
         ]);
     }
 
@@ -85,7 +71,6 @@ class AdminController extends Controller {
         return $this->render('order/view', [
             'order' => $order,
             'products' => $products,
-            'controller' => $this->getControllerName()
         ]);
     }
 
@@ -125,6 +110,4 @@ class AdminController extends Controller {
 
         return $this->returnToLastPage();
     }
-
-
 }

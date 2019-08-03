@@ -13,7 +13,6 @@ class ProductsController extends Controller {
         $products = (new ProductRepository)->findAll();
         return $this->render('index', [
             'products' => $products,
-            'controller' => $this->getControllerName(),
         ]);
     }
 
@@ -23,7 +22,6 @@ class ProductsController extends Controller {
             if ($product) {
                 return $this->render('view', [
                     'product' => $product,
-                    'controller' => $this->getControllerName(),
                 ]);
             }
         }
@@ -36,7 +34,7 @@ class ProductsController extends Controller {
         if ($product) {
             $repository->delete($product);
         }
-        $this->redirect('index');
+        return $this->returnToLastPage();
     }
 
     public function actionBuy(int $id) {
@@ -44,7 +42,7 @@ class ProductsController extends Controller {
         /** @var $product Product */
         $product = $repository->find($id);
         if (!$product) {
-            return $this->redirect();
+            return $this->returnToLastPage();
         }
         $products = $this->session->get(self::PRODUCTS);
 

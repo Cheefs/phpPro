@@ -2,33 +2,37 @@
   width: 45%;
   margin: 20px 0; }
 
-.form {
-  border: 1px solid; }
-  .form .input {
-    padding: 5px;
-    margin: 10px;
-    border: 1px solid #ddd;
-    border-radius: 2px; }
-  .form .btn {
-    font-weight: bold;
-    cursor: pointer;
-    color: #ffffff;
-    background-color: #f16d7f;
-    padding: 9px 23px;
-    border-radius: 3px;
-    transition: 0.3s ease-in-out;
-    box-sizing: border-box;
-    border: 1px solid transparent; }
-    .form .btn:hover {
-      border-color: #ddd;
-      color: #222222;
-      background-color: #ffffff; }
+.form .input {
+  padding: 5px;
+  margin: 10px;
+  border: 1px solid #ddd;
+  border-radius: 2px; }
+.form .btn {
+  font-weight: bold;
+  cursor: pointer;
+  color: #ffffff;
+  background-color: #f16d7f;
+  padding: 9px 23px;
+  border-radius: 3px;
+  transition: 0.3s ease-in-out;
+  box-sizing: border-box;
+  border: 1px solid transparent; }
+  .form .btn:hover {
+    border-color: #ddd;
+    color: #222222;
+    background-color: #ffffff; }
 
 .flex {
   display: flex;
   justify-content: center; }
   .flex.space_between {
     justify-content: space-between; }
+
+.text_uppercase {
+  text-transform: uppercase; }
+
+.margin {
+  margin: 20px; }
 
 .no_margin {
   margin: 0; }

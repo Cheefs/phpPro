@@ -1,28 +1,37 @@
 {% extends "layouts/main.twig" %}
 
+{% block promo %}
+    <div class="product-top-panel">
+        <div class="container">
+            <h3 class="top-panel-h3">
+                <a class="breadcrumbs-a" href="/{{ controller }}">{{ controller }}</a>
+            </h3>
+            <nav class="breadcrumbs">
+                <a class="breadcrumbs-a" href="/">Home</a><span>/</span>
+                <a class="breadcrumbs-a now" href="/{{ controller }}">/{{ controller }}</a>
+            </nav>
+        </div>
+    </div>
+{% endblock %}
+
 {% block content %}
-    <nav class="nav">
-        <a class="nav__btn" href="/">{{ translate.t('ru', 'home') }}</a>
-    </nav>
+    <div class="margin">
+        <h3 class="text_center text_uppercase"> {{ translate.t('ru', 'login') }}</h3>
+        <form class="form" method="post">
+            <label for="userName"> {{ translate.t('ru', 'username') }} </label>
+            <input id="userName" class="input" type="text" name="username">
 
-    <hr>
+            <label for="password"> {{ translate.t('ru', 'password') }} </label>
+            <input id="password" class="input" type="password" name="password">
 
-    <form class="form" method="post">
-        <label for="userName"> {{ translate.t('ru', 'username') }} </label>
-        <input id="userName" class="input" type="text" name="username">
-
-        <label for="password"> {{ translate.t('ru', 'password') }} </label>
-        <input id="password" class="input" type="password" name="password">
-
-        <button class="btn" type="submit">{{ translate.t('ru', 'login') }}</button>
-    </form>
-
-    <h4 class="text_center">
-        <span>{{ translate.t('ru', 'no account?') }}</span>
-        <span>
-            <a href="/{{ controller }}/register" class="text_marked">{{ translate.t('ru', 'register') }}</a>
-        </span>
-    </h4>
-
+            <button class="btn" type="submit">{{ translate.t('ru', 'login') }}</button>
+        </form>
+        <div class="text_center margin">
+            <span >{{ translate.t('ru', 'no account?') }}</span>
+            <span>
+                <a href="/{{ controller }}/register" class="text_marked">{{ translate.t('ru', 'register') }}</a>
+            </span>
+        </div>
+    </div>
 
 {% endblock %}

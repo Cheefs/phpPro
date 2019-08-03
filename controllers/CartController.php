@@ -43,7 +43,6 @@ class CartController extends Controller {
        return $this->render('index', [
            'user' => $user?? null,
            'cartItems' => $cartItems ?? [],
-           'controller' => $this->getControllerName(),
            'cartTotal' => $cartTotal,
        ]);
    }

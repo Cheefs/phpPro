@@ -31,7 +31,7 @@ CREATE TABLE `orders` (
   `phone` varchar(45) DEFAULT NULL,
   `address` varchar(250) DEFAULT NULL,
   `products_json` text,
-  `status` int(11) NOT NULL DEFAULT '0',
+  `status` int(11) NOT NULL DEFAULT '1',
   PRIMARY KEY (`id`),
   UNIQUE KEY `id_UNIQUE` (`id`),
   KEY `user_id_idx` (`user_id`),
@@ -45,7 +45,7 @@ CREATE TABLE `orders` (
 
 LOCK TABLES `orders` WRITE;
 /*!40000 ALTER TABLE `orders` DISABLE KEYS */;
-INSERT INTO `orders` VALUES (1,1,'Adminov Admin Adminovich','156','smtptest22@mail.ru','454545','','{\"3\":{\"count\":1,\"id\":\"3\",\"name\":\"Mango\",\"price\":\"52\",\"brand\":\"BINBURHAN\",\"material\":\"COTTON\",\"desc\":\" Compellingly actualize fully researched processes before proactive outsourcing.\",\"photo\":\"images\\/Layer_44.jpg\"},\"1\":{\"count\":2,\"id\":\"1\",\"name\":\"Mango T-shirt\",\"price\":\"52\",\"brand\":\"BINBURHAN\",\"material\":\"COTTON\",\"desc\":\" Compellingly actualize fully researched processes before proactive outsourcing.\",\"photo\":\"images\\/Layer_43.jpg\"}}',1),(2,1,'Adminov Admin Adminovich','52','smtptest22@mail.ru','454545','','{\"1\":{\"count\":1,\"id\":\"1\",\"name\":\"Mango T-shirt\",\"price\":\"52\",\"brand\":\"BINBURHAN\",\"material\":\"COTTON\",\"desc\":\" Compellingly actualize fully researched processes before proactive outsourcing.\",\"photo\":\"images\\/Layer_43.jpg\"}}',3),(4,1,'Adminov Admin Adminovich','50','smtptest22@mail.ru','454545','123123','{\"2\":{\"count\":1,\"id\":\"2\",\"name\":\"People T-shirt\",\"price\":\"50\",\"brand\":\"BINBURHAN\",\"material\":\"COTTON\",\"desc\":\" Compellingly actualize fully researched processes before proactive outsourcing.\",\"photo\":\"images\\/Layer_4.jpg\"}}',1),(5,1,'Adminov Admin Adminovich','50','smtptest22@mail.ru','454545','123123','{\"2\":{\"count\":1,\"id\":\"2\",\"name\":\"People T-shirt\",\"price\":\"50\",\"brand\":\"BINBURHAN\",\"material\":\"COTTON\",\"desc\":\" Compellingly actualize fully researched processes before proactive outsourcing.\",\"photo\":\"images\\/Layer_4.jpg\"}}',0);
+INSERT INTO `orders` VALUES (1,1,'Adminov Admin Adminovich','156','smtptest22@mail.ru','454545','','{\"3\":{\"count\":1,\"id\":\"3\",\"name\":\"Mango\",\"price\":\"52\",\"brand\":\"BINBURHAN\",\"material\":\"COTTON\",\"desc\":\" Compellingly actualize fully researched processes before proactive outsourcing.\",\"photo\":\"images\\/Layer_44.jpg\"},\"1\":{\"count\":2,\"id\":\"1\",\"name\":\"Mango T-shirt\",\"price\":\"52\",\"brand\":\"BINBURHAN\",\"material\":\"COTTON\",\"desc\":\" Compellingly actualize fully researched processes before proactive outsourcing.\",\"photo\":\"images\\/Layer_43.jpg\"}}',2),(2,1,'Adminov Admin Adminovich','52','smtptest22@mail.ru','454545','','{\"1\":{\"count\":1,\"id\":\"1\",\"name\":\"Mango T-shirt\",\"price\":\"52\",\"brand\":\"BINBURHAN\",\"material\":\"COTTON\",\"desc\":\" Compellingly actualize fully researched processes before proactive outsourcing.\",\"photo\":\"images\\/Layer_43.jpg\"}}',4),(4,1,'Adminov Admin Adminovich','50','smtptest22@mail.ru','454545','123123','{\"2\":{\"count\":1,\"id\":\"2\",\"name\":\"People T-shirt\",\"price\":\"50\",\"brand\":\"BINBURHAN\",\"material\":\"COTTON\",\"desc\":\" Compellingly actualize fully researched processes before proactive outsourcing.\",\"photo\":\"images\\/Layer_4.jpg\"}}',2),(5,1,'Adminov Admin Adminovich','50','smtptest22@mail.ru','454545','123123','{\"2\":{\"count\":1,\"id\":\"2\",\"name\":\"People T-shirt\",\"price\":\"50\",\"brand\":\"BINBURHAN\",\"material\":\"COTTON\",\"desc\":\" Compellingly actualize fully researched processes before proactive outsourcing.\",\"photo\":\"images\\/Layer_4.jpg\"}}',1);
 /*!40000 ALTER TABLE `orders` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -58,4 +58,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2019-08-03 21:01:25
+-- Dump completed on 2019-08-03 23:20:41
