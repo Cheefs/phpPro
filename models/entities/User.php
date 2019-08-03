@@ -13,6 +13,9 @@ namespace app\models\entities;
  *
  */
 class User extends Entity {
+
+    const ADMIN = 1;
+
     public $id;
     public $username;
     public $password;
@@ -21,5 +24,4 @@ class User extends Entity {
     public $second_name;
     public $email;
     public $phone;
-    public $is_guest = false;
 }

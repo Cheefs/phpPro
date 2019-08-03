@@ -66,7 +66,6 @@ class ProductsController extends Controller {
         $this->session->add([
             self::PRODUCTS => $products
         ]);
-
-        return $this->redirect();
+        return $this->returnToLastPage();
     }
 }

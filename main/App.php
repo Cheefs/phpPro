@@ -32,6 +32,8 @@ class App {
 
     private function runController() {
         $request = new Request();
+        $session = new Session();
+        $renderer = new TwigRenderService();
 
         $defaultController = $this->config['defaultController'];
         $defaultAction = $this->config['defaultAction'];
@@ -42,7 +44,7 @@ class App {
         $controllerClass = CONTROLLERS_PATH.ucfirst($controller).CONTROLLER;
 
         if (class_exists($controllerClass)) {
-            $controller = new $controllerClass(new TwigRenderService(), $request, new Session());
+            $controller = new $controllerClass($renderer, $request, $session);
             echo  $controller->run($action, $_GET['id']);
         } else {
             header('Location: /');

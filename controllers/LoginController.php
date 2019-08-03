@@ -33,7 +33,6 @@ class LoginController extends Controller {
     }
 
     public function actionRegister() {
-
         if ($_SERVER['REQUEST_METHOD'] === POST && count($_POST)) {
             $user = new User();
             $user->load($_POST);

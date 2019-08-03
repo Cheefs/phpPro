@@ -20,6 +20,7 @@ class CartController extends Controller {
        if ($user_id) {
            $user = (new UserRepository())->find($user_id);
        }
+
        if ($_SERVER['REQUEST_METHOD'] === POST && count($_POST)) {
            if (isset($user) && !is_null($user) ) {
                /** @var $user User */
@@ -31,6 +32,7 @@ class CartController extends Controller {
                    'phone' => $_POST['phone'],
                    'address' => $_POST['address'],
                    'products_json' => json_encode($cartItems),
+                   'status' => Order::STATUS_PROCESS
                ]);
                (new OrderRepository())->save($order);
                $this->session->remove(self::PRODUCT);

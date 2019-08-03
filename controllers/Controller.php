@@ -3,6 +3,8 @@
 namespace app\controllers;
 
 use app\helpers\Helper;
+use app\models\entities\User;
+use app\models\repositories\CartRepository;
 use app\services\interfaces\IRenderService;
 use app\services\Request;
 use app\services\Session;
@@ -15,6 +17,7 @@ use Translate;
  * @property string $default
  * @property Request $request
  * @property Session $session
+ * @property User $identity
  *
 */
 abstract class Controller {
@@ -78,7 +81,10 @@ abstract class Controller {
      * @param array $params
      */
     protected function renderTemplate(string $template, array $params = []) {
-        $params['guest'] = $this->session->get('user_id')? false : true;
+        $products = $this->session->get('products');
+        $cartTotal = (new CartRepository())->getTotalCartPrice($products?? []);
+        $params['productsTotal'] = $cartTotal['count'];
+        $params['guest'] = !$this->session->get('user_id')? true : false;
        return $this->renderer->renderTmpl($template, $params);
     }
 
@@ -87,10 +93,16 @@ abstract class Controller {
      * @param $controller
      * @return true
      */
-    public function redirect($action = null, $controller = null) {
+    public function redirect($controller = null, $action = null) {
         $controllerName = $controller? $controller : $this->getControllerName();
         $action = $action? '/'.$action : '';
         header("Location: /{$controllerName}{ $action }");
+        return true;
+    }
+
+    public function returnToLastPage() {
+        $location = $_SERVER['HTTP_REFERER'];
+        header("Location: $location");
         return true;
     }
 

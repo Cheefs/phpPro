@@ -1,0 +1,59 @@
+{% extends "admin/index.twig" %}
+
+{% block data %}
+
+    <h3>{{ translate.t('ru', 'order info') }} № {{ order.id }} </h3>
+
+    <div>
+        <div>
+            <span>{{ translate.t('ru', 'fio') }}:</span>
+            <span class="text_marked">{{ order.fio }}</span>
+         </div>
+        <div>
+            <span>{{ translate.t('ru', 'phone') }}:</span>
+            <span class="text_marked">{{ order.phone }}</span>
+        </div>
+        <div>
+            <span>{{ translate.t('ru', 'phone') }}:</span>
+            <span class="text_marked">{{ order.phone }}</span>
+        </div>
+        <div>
+            <span>{{ translate.t('ru', 'address') }}:</span>
+            <span class="text_marked">{{ order.address? order.address : translate.t('ru', 'not set') }}</span>
+         </div>
+        <div>
+            <span>{{ translate.t('ru', 'order price') }}:</span>
+            <span class="text_marked">{{ order.price }}</span>
+        </div>
+    </div>
+
+    <table class="table">
+        <thead class="table__head">
+        <tr class="head__row">
+            <th class="head__cell">{{ translate.t('ru', 'id') }}</th>
+            <th class="head__cell">{{ translate.t('ru', 'photo') }}</th>
+            <th class="head__cell">{{ translate.t('ru', 'name') }}</th>
+            <th class="head__cell">{{ translate.t('ru', 'price') }}</th>
+            <th class="head__cell">{{ translate.t('ru', 'material') }}</th>
+            <th class="head__cell">{{ translate.t('ru', 'desc') }}</th>
+            <th class="head__cell">{{ translate.t('ru', 'brand') }}</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for product in products %}
+            <tr class="table__row" data-href="/{{ controller }}/view?id={{ product.id }}">
+                <td class="table__cell">{{ product.id }}</td>
+                <td class="table__cell">
+                    <img class="product__photo" src="/assets/{{ product.photo }}" alt="product-photo">
+                </td>
+                <td class="table__cell">{{ product.name }}</td>
+                <td class="table__cell">{{ product.price }}</td>
+
+                <td class="table__cell">{{ product.material }}</td>
+                <td class="table__cell">{{ product.desc }}</td>
+                <td class="table__cell">{{ product.brand }}</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

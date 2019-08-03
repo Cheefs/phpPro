@@ -254,8 +254,8 @@ nav
             color: #b8b7b7dd
 
 .container
-  flex-grow: 1
   +container($containerWidth, $autoMargins)
+  flex-grow: 1
   &.my-account
     display: flex
     padding: 30px 0
@@ -1211,10 +1211,10 @@ header
 
 
 footer
+  height: 79px
   background-color: #e6e6e6
 
   .container
-    padding: 20px
     +editedFlex(space-between, center)
     height: 100%
     margin: 0 auto
@@ -1259,3 +1259,9 @@ footer
           color: $colorWhite
         &.in
           filter: brightness(85%)
+
+
+@import "product"
+@import "singlePage"
+@import "cart"
+@import "checkout"

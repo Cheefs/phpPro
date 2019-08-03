@@ -103,7 +103,6 @@ abstract class Repository {
             $keys = implode(',', array_keys($params['keys']));
             $sql = "INSERT INTO {$table} ({$fields}) VALUES ({$keys})";
             $this->db->execute($sql, $params['values']);
-
             return $entity->id = $this->db->lastInsertId();
         } else {
             $keys = implode(',', $params['keys']);

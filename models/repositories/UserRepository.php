@@ -16,4 +16,14 @@ class UserRepository extends Repository {
        return User::class;
     }
 
+    /**
+     * @param $id
+     * @return \PDOStatement
+     */
+    public function isAdmin($id) {
+        $table = self::tableName();
+        $admin = User::ADMIN;
+        $sql = "SELECT * FROM {$table} WHERE id = :id AND is_admin = :is_admin";
+        return $this->db->find($sql, User::class, [':id' => $id, 'is_admin' => $admin]);
+    }
 }

@@ -63,7 +63,6 @@ class DB implements IDB{
             PDO::FETCH_CLASS,
             $class
         );
-
         $PDOStatement->execute($params);
         return $PDOStatement;
     }
@@ -95,7 +94,8 @@ class DB implements IDB{
      * @param array $params
      */
     public function execute(string $sql, array $params = []) {
-        $this->query($sql, $params);
+        return $this->query($sql, $params);
+
     }
 
     /**

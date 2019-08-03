@@ -17,10 +17,14 @@ window.addEventListener('load', () => {
        });
    }
 
-   const $cancelBtn = document.querySelector('.cancel');
-   if ($cancelBtn) {
-       $cancelBtn.addEventListener('click', (e) => {
-           location.href = e.target.dataset.href;
+   const $content = document.querySelector('.content');
+   if ($content) {
+       $content.addEventListener('click', (e) => {
+           const target = e.target;
+           if (target.classList.contains('redirect')) {
+               location.href = target.dataset.href;
+           }
        });
    }
+
 });
