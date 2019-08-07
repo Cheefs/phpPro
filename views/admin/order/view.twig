@@ -3,7 +3,6 @@
 {% block data %}
 
     <h3>{{ translate.t('ru', 'order info') }} № {{ order.id }} </h3>
-
     <div>
         <div>
             <span>{{ translate.t('ru', 'fio') }}:</span>
@@ -56,4 +55,8 @@
         {% endfor %}
         </tbody>
     </table>
+
+    <div class="hide">
+        <h3 hidden class="text_center text_uppercase action-name">{{ translate.t('ru', 'orders' ) }}</h3>
+    </div>
 {% endblock %}

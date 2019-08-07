@@ -17,6 +17,11 @@
         'not set' => 'Не заданно',
         'order status' => 'Статус заказа',
         'orders' => 'Заказы',
+        'my orders' => 'Мои заказы',
+        'personal data' => 'Личные данные',
+        'wrong username or password' => 'Неверное имя пользователя или пароль',
+        'please fill all fields' => 'Пожалуйста заполните все обязательные поля',
+        'orders not found' => 'Заказы не найденны',
 
         'to users' => 'К списку пользователей',
         'to products' => 'К списку товаров',

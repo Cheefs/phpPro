@@ -17,17 +17,17 @@
 {% block content %}
     <div class="margin">
         <form class="form" method="post">
-            <label for="userName"> {{ translate.t('ru', 'username') }} </label>
-            <input id="userName" class="input" type="text" name="username">
+            <label for="userName"> {{ translate.t('ru', 'username') }} <span class="required_field">*</span> </label>
+            <input id="userName" class="input {{ error and not user.username ? 'has_error' : '' }}" type="text" name="username">
 
-            <label for="password"> {{ translate.t('ru', 'password') }} </label>
-            <input id="password" class="input" type="password" name="password">
+            <label for="password"> {{ translate.t('ru', 'password') }} <span class="required_field">*</span> </label>
+            <input id="password" class="input {{ error and not user.password ? 'has_error' : '' }}" type="password" name="password">
 
-            <label for="last_name"> {{ translate.t('ru', 'last name') }} </label>
-            <input id="last_name" class="input" type="text" name="last_name">
+            <label for="last_name"> {{ translate.t('ru', 'last name') }} <span class="required_field">*</span> </label>
+            <input id="last_name" class="input {{ error and not user.last_name ? 'has_error' : '' }}" type="text" name="last_name">
 
-            <label for="first_name"> {{ translate.t('ru', 'first name') }} </label>
-            <input id="first_name" class="input" type="text" name="first_name">
+            <label for="first_name"> {{ translate.t('ru', 'first name') }} <span class="required_field">*</span></label>
+            <input id="first_name" class="input {{ error and not user.first_name ? 'has_error' : '' }}" type="text" name="first_name">
 
             <label for="second_name"> {{ translate.t('ru', 'second name') }} </label>
             <input id="second_name" class="input" type="text" name="second_name">
@@ -37,6 +37,10 @@
 
             <label for="phone"> {{ translate.t('ru', 'phone') }} </label>
             <input id="phone" class="input" type="text" name="phone">
+
+            <h4 class="has_error">
+                {{ error ? translate.t('ru', 'please fill all fields') }}
+            </h4>
 
             <button class="btn" type="submit">{{ translate.t('ru', 'register') }}</button>
         </form>

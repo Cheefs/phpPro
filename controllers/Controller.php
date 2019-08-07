@@ -20,7 +20,7 @@ use Translate;
  * @property User $identity
  *
 */
-abstract class Controller {
+class Controller {
     const ACTION = 'action';
     const CONTROLLER = 'Controller';
     private $renderer;
@@ -28,7 +28,7 @@ abstract class Controller {
     protected $request;
     protected $session;
 
-    public function __construct(TwigRenderService $renderer, Request $request, Session $session) {
+    public function __construct(TwigRenderService $renderer, Request $request, Session $session = null) {
         $this->renderer = $renderer;
         $this->request = $request;
         $this->session = $session;
@@ -84,7 +84,7 @@ abstract class Controller {
         return [
             'guest' => !$isUserSet,
             'productsTotal' => $cartTotal['count'],
-            'controller' => $this->getControllerName()
+            'controller' => $this->getControllerName(),
         ];
     }
 
@@ -105,7 +105,7 @@ abstract class Controller {
     public function redirect($controller = null, $action = null) {
         $controllerName = $controller? $controller : $this->getControllerName();
         $action = $action? '/'.$action : '';
-        header("Location: /{$controllerName}{ $action }");
+        header("Location: /{$controllerName}{$action}");
         return true;
     }
 

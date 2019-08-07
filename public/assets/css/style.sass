@@ -2,6 +2,27 @@
   width: 45%
   margin: 20px 0
 
+.required_field
+  color: red
+
+.has_error
+  color: red
+  border-color: red !important
+
+.products__small
+  height: 50px
+  .link
+    margin: 2px
+    border: 1px solid #ddd
+    border-radius: 2px
+    display: block
+    height: 100%
+  .image
+    transition: 0.3s
+    @extend .link
+    &:hover
+      transform: scale(1.2)
+
 .form
   .input
     padding: 5px
@@ -28,6 +49,8 @@
   justify-content: center
   &.space_between
     justify-content: space-between
+  &.items_center
+    align-items: center
 
 .text_uppercase
   text-transform: uppercase

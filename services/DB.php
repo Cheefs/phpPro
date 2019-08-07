@@ -94,7 +94,7 @@ class DB implements IDB{
      * @param array $params
      */
     public function execute(string $sql, array $params = []) {
-        return $this->query($sql, $params);
+         $this->query($sql, $params);
 
     }
 

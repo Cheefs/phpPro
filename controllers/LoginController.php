@@ -10,7 +10,7 @@ class LoginController extends Controller {
 
     public function actionIndex() {
         $user_id = $this->session->get('user_id');
-        if ($user_id ) {
+        if ( $user_id ) {
             return $this->actionPersonal();
         }
 
@@ -23,28 +23,35 @@ class LoginController extends Controller {
 
             if ($user) {
                 $this->session->add(['user_id' => $user->id]);
-                return $this->actionPersonal();
+
+                return $user->is_admin ? $this->redirect('admin') :
+                    $this->actionPersonal();
             }
+            $error = true;
         }
 
         return $this->render('loginForm', [
-            'controller' => self::getControllerName()
+            'error' => $error?? false
         ]);
     }
 
     public function actionRegister() {
+        $user = new User();
         if ($_SERVER['REQUEST_METHOD'] === POST && count($_POST)) {
-            $user = new User();
             $user->load($_POST);
-            $repository = new UserRepository();
-            $id = $repository->save($user);
-
-            $this->session->add(['user_id' => $id]);
-            return $this->actionPersonal();
+            if ($user->validate()) {
+                $repository = new UserRepository();
+                $user->password = Helper::getHash($user->password);
+                $id = $repository->save($user);
+                $this->session->add(['user_id' => $id]);
+                return $this->actionPersonal();
+            }
+            $error = true;
         }
 
         return $this->render('registerForm', [
-            'controller' => self::getControllerName()
+            'user' => $user,
+            'error' => $error?? false
         ]);
     }
 
@@ -55,6 +62,6 @@ class LoginController extends Controller {
 
     public function actionPersonal() {
         // так как личный кабинет не реализован, просто не пускаем обратно на логин
-       return $this->redirect('index', 'default');
+       return $this->redirect('users');
     }
 }

@@ -36,7 +36,7 @@ class CartController extends Controller {
                ]);
                (new OrderRepository())->save($order);
                $this->session->remove(self::PRODUCT);
-              return $this->redirect('index', 'products');
+              return $this->redirect('users', 'orders');
            }
        }
 
@@ -49,7 +49,7 @@ class CartController extends Controller {
 
    public function actionDelete( $id) {
        $cartItems = $this->session->get('products');
-       if(isset($cartItems[$id])) {
+       if (isset($cartItems[$id])) {
            $item = $cartItems[$id];
           if ($item['count'] > 1) {
               $item['count']--;

@@ -32,7 +32,7 @@ class AdminController extends Controller {
      * @return false|string
      */
     public function actionIndex() {
-        return $this->render('index');
+        return $this->redirect(null, 'orders');
     }
 
     public function actionUsers() {
@@ -48,11 +48,14 @@ class AdminController extends Controller {
     }
 
     public function actionOrders() {
-        $orderStatuses = (new OrderStatusRepository())->getStatusesArr();
+        $repository = new OrderRepository();
+        $orders = (new OrderRepository())->findAll();
+        $repository->prepareOrders($orders);
+
         return $this->render('order/index', [
             'model' => new Order(),
-            'orders' => (new OrderRepository())->findAll(),
-            'status' => $orderStatuses,
+            'orders' => $orders,
+            'status' => (new OrderStatusRepository())->getStatusesArr(),
         ]);
     }
 

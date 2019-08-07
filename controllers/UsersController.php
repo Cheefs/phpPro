@@ -3,6 +3,8 @@
 namespace app\controllers;
 
 use app\models\entities\User;
+use app\models\repositories\OrderRepository;
+use app\models\repositories\OrderStatusRepository;
 use app\models\repositories\UserRepository;
 
 class UsersController extends Controller {
@@ -13,23 +15,37 @@ class UsersController extends Controller {
      */
     public function actionIndex() {
         $user_id = $this->session->get('user_id');
-        if (!$user_id) {
-            return $this->returnToLastPage();
-        }
         /** @var $user User */
-        $user = (new UserRepository)->find($user_id);
+        $repository = new UserRepository();
+        $user = $repository->find($user_id);
 
-        if (!$user) {
-            return $this->returnToLastPage();
+        if ($_SERVER['REQUEST_METHOD'] == POST && count($_POST)) {
+            $user->load($_POST);
+            $repository->save($user);
         }
 
-        if (!$user->is_admin) {
-            return $this->render('index', [
-                'user' => $user,
+        if ($user) {
+            return $user->is_admin? $this->redirect('admin') :
+               $this->render('index', [
+                  'user' => $user
             ]);
-        } else {
-            return $this->redirect('admin');
+
         }
+        return $this->redirect('default');
+    }
+
+    public function actionOrders() {
+        $user_id = $this->session->get('user_id');
+        if ($user_id) {
+            $repository = new OrderRepository();
+            $orders = $repository->findAll(['user_id' => $user_id]);
+            $repository->prepareOrders($orders);
+           return $this->render('orders', [
+               'orders' => $orders,
+               'status' => (new OrderStatusRepository())->getStatusesArr(),
+           ]);
+        }
+        return $this->redirect('default');
     }
 
     /**

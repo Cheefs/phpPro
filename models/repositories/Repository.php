@@ -108,7 +108,6 @@ abstract class Repository {
             $keys = implode(',', $params['keys']);
             $sql = "UPDATE $table SET {$keys} WHERE id={$entity->id}";
             $this->db->execute($sql, $params['values']);
-
             return $entity->id;
         }
     }

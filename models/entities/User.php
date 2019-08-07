@@ -5,6 +5,7 @@ namespace app\models\entities;
 
 /**
  * @property int $id
+ * @property string $username
  * @property string $first_name
  * @property string $last_name
  * @property string $second_name
@@ -24,5 +25,20 @@ class User extends Entity {
     public $second_name;
     public $email;
     public $phone;
-    public $is_admin;
+    public $is_admin = 0;
+
+    private $requiredFields = ['username', 'password' , 'first_name', 'last_name'];
+
+    /**
+     * Проверка что заполнены обязательыне поля
+     * @return bool
+     */
+    public function validate() {
+        foreach ($this->requiredFields as $field) {
+            if (is_null($this->$field) && trim($this->$field) === '') {
+                return false;
+            }
+        }
+        return true;
+    }
 }

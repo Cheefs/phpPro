@@ -16,22 +16,19 @@
 
 {% block content %}
 
-<div class="container my-account">
+    <div class="container my-account">
 
-    <div class="nav__panel">
-        <div class="nav__element text_uppercase redirect" data-href="/admin/orders">
-            {{ translate.t('ru', 'orders') }}
+        <div class="nav__panel">
+            <div class="nav__element text_uppercase redirect" data-href="/{{ controller }}">
+                {{ translate.t('ru', 'personal data') }}
+            </div>
+            <div class="nav__element text_uppercase redirect" data-href="/{{ controller }}/orders">
+                {{ translate.t('ru', 'my orders') }}
+            </div>
         </div>
-        <div class="nav__element text_uppercase redirect" data-href="/admin/users">
-            {{ translate.t('ru', 'users') }}
-        </div>
-        <div class="nav__element text_uppercase redirect" data-href="/admin/products">
-            {{ translate.t('ru', 'products') }}
+
+        <div class="my-data_container">
+            {% block data %}{% endblock %}
         </div>
     </div>
-
-    <div class="my-data_container">
-        {% block data %}{% endblock %}
-    </div>
-</div>
 {% endblock %}

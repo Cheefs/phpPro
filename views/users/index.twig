@@ -1,6 +1,34 @@
-{% extends 'layouts/main.twig' %}
-{% block content %}
+{% extends 'layouts/user.twig' %}
 
-    text
+{% block data %}
 
+    <h3 class="text_center text_uppercase action-name"> {{ translate.t('ru', 'personal data') }}</h3>
+    <form class="form" method="post">
+        <label for="userName"> {{ translate.t('ru', 'username') }} </label>
+        <input id="userName" class="input" type="text" name="username" value="{{ user.username }}">
+
+        <label for="lastName"> {{ translate.t('ru', 'last name') }} </label>
+        <input id="lastName" class="input" type="text" name="last_name" value="{{ user.last_name }}">
+
+        <label for="firstName"> {{ translate.t('ru', 'first name') }} </label>
+        <input id="firstName" class="input" type="text" name="first_name" value="{{ user.first_name }}">
+
+        <label for="secondName"> {{ translate.t('ru', 'second name') }} </label>
+        <input id="secondName" class="input" type="text" name="second_name" value="{{ user.second_name }}">
+
+        <label for="phone"> {{ translate.t('ru', 'phone') }} </label>
+        <input id="phone" class="input" type="text" name="phone" value="{{ user.phone }}">
+
+        <label for="email"> {{ translate.t('ru', 'email') }} </label>
+        <input id="email" class="input" type="text" name="email" value="{{ user.email }}">
+
+        <div class="flex">
+            <button type="submit" class="form__button save">
+                {{ translate.t('ru', 'save') }}
+            </button>
+            <button type="button" class="form__button redirect" data-href="/{{ controller }}">
+                {{ translate.t('ru', 'cancel') }}
+            </button>
+        </div>
+    </form>
 {% endblock %}

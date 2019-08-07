@@ -19,10 +19,12 @@
         <h3 class="text_center text_uppercase"> {{ translate.t('ru', 'login') }}</h3>
         <form class="form" method="post">
             <label for="userName"> {{ translate.t('ru', 'username') }} </label>
-            <input id="userName" class="input" type="text" name="username">
+            <input id="userName" class="input {{ error ? 'has_error' : '' }}" type="text" name="username">
 
             <label for="password"> {{ translate.t('ru', 'password') }} </label>
-            <input id="password" class="input" type="password" name="password">
+            <input id="password" class="input {{ error ? 'has_error' : '' }}" type="password" name="password">
+
+            <h4 class="has_error">{{ error ? translate.t('ru', 'wrong username or password') }}</h4>
 
             <button class="btn" type="submit">{{ translate.t('ru', 'login') }}</button>
         </form>

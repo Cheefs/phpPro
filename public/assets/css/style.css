@@ -2,6 +2,26 @@
   width: 45%;
   margin: 20px 0; }
 
+.required_field {
+  color: red; }
+
+.has_error {
+  color: red;
+  border-color: red !important; }
+
+.products__small {
+  height: 50px; }
+  .products__small .link, .products__small .image {
+    margin: 2px;
+    border: 1px solid #ddd;
+    border-radius: 2px;
+    display: block;
+    height: 100%; }
+  .products__small .image {
+    transition: 0.3s; }
+    .products__small .image:hover {
+      transform: scale(1.2); }
+
 .form .input {
   padding: 5px;
   margin: 10px;
@@ -27,6 +47,8 @@
   justify-content: center; }
   .flex.space_between {
     justify-content: space-between; }
+  .flex.items_center {
+    align-items: center; }
 
 .text_uppercase {
   text-transform: uppercase; }

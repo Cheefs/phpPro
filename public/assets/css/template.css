@@ -105,8 +105,7 @@ nav {
     cursor: pointer;
     font-size: 12px;
     padding: 2px 6px;
-    margin: 0 2px;
-    transition: 0.5s; }
+    margin: 0 2px; }
     .admin__controls .admin__btn.btn_primarry {
       border: 1px solid #646464;
       background-color: #646464; }
@@ -134,7 +133,6 @@ nav {
   width: 30%;
   border-left: 1px solid #f7f7f7; }
   .nav__panel .nav__element {
-    transition: 0.5s;
     margin: 5px;
     display: flex;
     align-items: center;
@@ -181,7 +179,6 @@ nav {
   .account__control .my-account-btn {
     font-weight: bold; }
   .account__control .btn-logout {
-    transition: 0.5s;
     font-size: 22px;
     padding: 8px;
     text-align: center;
@@ -202,7 +199,6 @@ nav {
   margin-top: 10px; }
 
 .modal {
-  transition: 0.5s;
   position: fixed;
   z-index: 100;
   left: 0;
@@ -226,7 +222,6 @@ nav {
   .modal form.login-form.register .buttons .btn.btn_register {
     margin-right: 0; }
   .modal .modal-content {
-    transition: 0.5s;
     background-color: #fefefe;
     margin: 0 auto;
     width: 510px;
@@ -263,7 +258,6 @@ nav {
         position: absolute;
         top: 0;
         right: 11px;
-        transition: 0.5s;
         font-style: normal; }
         .modal .modal-content .modal__header .close:hover, .modal .modal-content .modal__header .close:focus {
           color: black;
@@ -347,7 +341,6 @@ header {
       background-color: #f16d7f;
       padding: 9px 23px;
       border-radius: 3px;
-      transition: 0.3s ease-in-out;
       box-sizing: border-box;
       border: 1px solid transparent; }
       header .header-right .my-account-btn:hover {
@@ -402,8 +395,7 @@ header {
           font-size: 14px;
           font-weight: 700;
           text-transform: uppercase;
-          background-color: #ffffff;
-          transition: 0.4s; }
+          background-color: #ffffff; }
         header .header-right .cart-items .bottom-block .btn-to-cart {
           display: block;
           margin-top: 11px;
@@ -522,8 +514,7 @@ header {
           font-size: 14px;
           border-radius: 3px 0 0 3px;
           font-weight: 500;
-          letter-spacing: 0.35px;
-          transition: 0.5s; }
+          letter-spacing: 0.35px; }
           header .header-left .header-form .select .browse-container .browse:hover {
             color: #ffffff; }
           header .header-left .header-form .select .browse-container .browse:after {
@@ -533,16 +524,14 @@ header {
             position: absolute;
             top: 18px;
             margin-left: 8px;
-            color: #838383;
-            transition: 1s; }
+            color: #838383; }
       header .header-left .header-form .find-btn {
         display: block;
         border-radius: 0 3px 3px 0;
         background-color: #ffffff;
         color: #a4a4a4;
         font-size: 14px;
-        font-weight: 400;
-        transition: 0.5s; }
+        font-weight: 400; }
         header .header-left .header-form .find-btn .fa-search {
           padding: 12px 10px; }
         header .header-left .header-form .find-btn:hover {
@@ -640,8 +629,7 @@ header {
       font-weight: 600;
       display: flex;
       justify-content: flex-end;
-      align-items: flex-end;
-      transition: 1s; }
+      align-items: flex-end; }
       .mega-menu .mega-menu-incide .mega-menu-img:hover {
         transform: scale(0.9);
         box-shadow: #646464 1px 1px 10px 10px; }
@@ -692,8 +680,7 @@ header {
   .promo .promo-content {
     background-image: url("../images/promo.jpg");
     height: 613px;
-    background-position-y: -52px;
-    transition: 1s ease; }
+    background-position-y: -52px; }
     .promo .promo-content:hover {
       transform: scale(0.9) translate(0, 32px); }
   .promo .promo-text {
@@ -720,11 +707,9 @@ header {
   justify-content: space-between;
   height: 823px;
   margin-top: 98px; }
-  .container .body-content .content-hot a {
-    transition: 1s; }
-    .container .body-content .content-hot a:hover {
-      filter: brightness(75%);
-      transform: scale(1.05); }
+  .container .body-content .content-hot a:hover {
+    filter: brightness(75%);
+    transform: scale(1.05); }
   .container .body-content .content-hot .text {
     width: 135px;
     margin-top: 26px;
@@ -799,8 +784,7 @@ header {
     position: relative; }
     .container .body-content section .featured-container .product-item .item {
       display: block;
-      width: 261px;
-      transition: 0.6s; }
+      width: 261px; }
       .container .body-content section .featured-container .product-item .item .item-photo {
         height: 280px;
         background-position: center;
@@ -837,8 +821,7 @@ header {
     font-size: 13px;
     font-weight: 700;
     line-height: 39px;
-    text-align: center;
-    transition: 0.6s; }
+    text-align: center; }
     .container .body-content section .featured-container .to-cart:hover {
       background: #ffffff5e;
       transform: scale(1.1) translate(2px); }
@@ -855,8 +838,7 @@ header {
     font-size: 16px;
     font-weight: 700;
     line-height: 54px;
-    padding: 14px 35px;
-    transition: 1s; }
+    padding: 14px 35px; }
   .container .body-content .btn-allproducts-container a:hover {
     padding: 14px 100px;
     background-color: #e3455afc; }
@@ -873,7 +855,6 @@ header {
       width: 767px;
       height: 100%;
       background: url(../images/info.jpg);
-      transition: 1s;
       box-sizing: border-box; }
       .container .body-content .info-container .content-info .content-left:hover {
         box-shadow: #ffffff47 1px 1px 5px 5px;
@@ -884,13 +865,11 @@ header {
         color: #ffffff; }
       .container .body-content .info-container .content-info .content-left .info-text {
         margin-top: 146px;
-        margin-left: 39px;
-        transition: 2s; }
+        margin-left: 39px; }
         .container .body-content .info-container .content-info .content-left .info-text h1 {
           color: #ffffff;
           font-weight: 900;
-          font-size: 32px;
-          transition: 1s; }
+          font-size: 32px; }
         .container .body-content .info-container .content-info .content-left .info-text h2 {
           font-size: 32px; }
         .container .body-content .info-container .content-info .content-left .info-text span {
@@ -955,8 +934,7 @@ header {
             display: block;
             width: 83px;
             height: 83px;
-            border-radius: 50%;
-            transition: 2s; }
+            border-radius: 50%; }
             .comments-block .container-feed .content .feed-block .comment .user-photo:hover {
               transform: scale(1.2);
               box-shadow: #a4a4a4 1px 1px 3px 3px; }
@@ -975,8 +953,7 @@ header {
             .comments-block .container-feed .content .feed-block .comment .user-comment .user-name {
               margin-top: 19px;
               font-size: 12px;
-              font-weight: 500;
-              transition: 1s; }
+              font-weight: 500; }
               .comments-block .container-feed .content .feed-block .comment .user-comment .user-name:hover a {
                 color: #e3455afc; }
               .comments-block .container-feed .content .feed-block .comment .user-comment .user-name a {
@@ -1044,7 +1021,6 @@ header {
           border-radius: 0 23px 23px 0;
           background-color: #f16d7f;
           border: navajowhite;
-          transition: 0.6s;
           box-sizing: border-box; }
           .comments-block .container-feed .content .subcribe-form .email-form .btn-subscribe:hover {
             background-color: #e3455afc; }
@@ -1095,8 +1071,7 @@ header {
       font-size: 16px;
       font-weight: 400;
       letter-spacing: 0.4px;
-      line-height: 42px;
-      transition: 0.5s; }
+      line-height: 42px; }
       .promo-bottom .container .content-bottom-nav li a:hover {
         color: #f16d7f;
         transform: scale(1.2); }
@@ -1139,8 +1114,7 @@ footer {
         display: block;
         height: 32px;
         width: 32px;
-        background-color: #ffffff;
-        transition: 8s; }
+        background-color: #ffffff; }
         footer .container .footer-left .social-btn:hover {
           transform: rotateZ(360deg); }
         footer .container .footer-left .social-btn i {
@@ -1152,8 +1126,7 @@ footer {
           font-size: 16px;
           font-weight: 400;
           line-height: 42px;
-          letter-spacing: 1.4px;
-          transition: 0.5s; }
+          letter-spacing: 1.4px; }
         footer .container .footer-left .social-btn:hover i {
           background: #f16d7f;
           color: #ffffff; }
@@ -1176,7 +1149,7 @@ footer {
       color: #222222;
       line-height: 20px;
       padding: 1px;
-      transition: 1s;
+      transition: 0.2s;
       display: block; }
       .product-top-panel .container .breadcrumbs-a:hover {
         color: #e3455afc;
@@ -1199,7 +1172,7 @@ footer {
       text-transform: uppercase;
       color: #636363;
       font-weight: 500;
-      transition: 0.7s; }
+      transition: 0.2s; }
     .product-top-panel .container .top-panel-h3 .breadcrumbs-a {
       font-size: 24px;
       font-weight: 700;
@@ -1223,7 +1196,7 @@ footer {
       line-height: 20px;
       text-transform: uppercase;
       margin-bottom: 18px;
-      transition: 0.6s; }
+      transition: 0.2s; }
       .product-container .left-side .spoiler-container .spoiler .spoiler-h3 {
         line-height: 14px;
         height: 14px;
