@@ -11,16 +11,30 @@
 
 .products__small {
   height: 50px; }
-  .products__small .link, .products__small .image {
-    margin: 2px;
-    border: 1px solid #ddd;
-    border-radius: 2px;
-    display: block;
-    height: 100%; }
-  .products__small .image {
+
+.link, .link .image {
+  position: relative;
+  margin: 2px;
+  border: 1px solid #ddd;
+  border-radius: 2px;
+  display: block;
+  height: 100%; }
+  .link:hover .image, .link .image:hover .image {
+    transform: scale(1.2); }
+  .link:hover .price_label, .link .image:hover .price_label {
+    transform: scale(1.2) rotate(-22deg) translate(10px, 25px); }
+  .link .price_label {
+    transition: 0.2s;
+    position: absolute;
+    bottom: 15px;
+    right: 15px;
+    transform: rotate(-22deg);
+    font-weight: bold;
+    color: #f16d7f;
+    text-shadow: 2px 2px black;
+    font-size: 2em; }
+  .link .image {
     transition: 0.3s; }
-    .products__small .image:hover {
-      transform: scale(1.2); }
 
 .form .input {
   padding: 5px;

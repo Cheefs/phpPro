@@ -47,4 +47,17 @@ class UsersController extends Controller {
         }
         return $this->redirect('default');
     }
+
+    public function actionOrder($id) {
+        $repository = new OrderRepository();
+        $order[] = $repository->find($id);
+        if ($order) {
+            $repository->prepareOrders($order);
+            return $this->render('order', [
+                'order' => $order[0],
+                'status' => (new OrderStatusRepository())->getStatusesArr(),
+            ]);
+        }
+        return $this->redirect('default');
+    }
 }

@@ -11,17 +11,34 @@
 
 .products__small
   height: 50px
-  .link
-    margin: 2px
-    border: 1px solid #ddd
-    border-radius: 2px
-    display: block
-    height: 100%
+
+.link
+  position: relative
+  margin: 2px
+  border: 1px solid #ddd
+  border-radius: 2px
+  display: block
+  height: 100%
+
+  &:hover .image
+    transform: scale(1.2)
+
+  &:hover .price_label
+    transform: scale(1.2) rotate(-22deg) translate(10px, 25px)
+  .price_label
+    transition: 0.2s
+    position: absolute
+    bottom: 15px
+    right: 15px
+    transform: rotate(-22deg)
+    font-weight: bold
+    color: #f16d7f
+    text-shadow: 2px 2px black
+    font-size: 2em
   .image
     transition: 0.3s
     @extend .link
-    &:hover
-      transform: scale(1.2)
+
 
 .form
   .input
