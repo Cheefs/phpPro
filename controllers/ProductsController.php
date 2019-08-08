@@ -10,7 +10,14 @@ class ProductsController extends Controller {
     const PRODUCTS = 'products';
 
     public function actionIndex() {
-        $products = (new ProductRepository)->findAll();
+        if ($_SERVER['REQUEST_METHOD'] == GET && count($_GET) ) {
+           $name = $_GET['name'];
+           $sql = "WHERE name like '%{$name}%'";
+           $products = (new ProductRepository)->findByCustomCondition($sql);
+        } else {
+           $products = (new ProductRepository)->findAll();
+        }
+
         return $this->render('index', [
             'products' => $products,
         ]);
@@ -28,6 +35,11 @@ class ProductsController extends Controller {
         return $this->notFound();
     }
 
+    /**
+     * УДаление товара (будет использоватся в админке)
+     * @param int $id
+     * @return bool
+     */
     public function actionDelete(int $id) {
         $repository = new ProductRepository();
         $product = $repository->find($id);
@@ -37,6 +49,11 @@ class ProductsController extends Controller {
         return $this->returnToLastPage();
     }
 
+    /**
+     * Добавление товара в корзину
+     * @param int $id
+     * @return bool
+     */
     public function actionBuy(int $id) {
         $repository = new ProductRepository();
         /** @var $product Product */

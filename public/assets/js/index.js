@@ -20,11 +20,11 @@ window.addEventListener('load', () => {
    if ($content) {
        $content.addEventListener('click', (e) => {
            const target = e.target;
-           const clasList = target.classList;
-           if (clasList.contains('redirect')) {
+           const classList = target.classList;
+           if (classList.contains('redirect')) {
                location.href = target.dataset.href;
            } else if (target.tagName.toLowerCase() === 'input') {
-               clasList.remove('has_error')
+               classList.remove('has_error')
            }
        });
    }

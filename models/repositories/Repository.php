@@ -78,6 +78,17 @@ abstract class Repository {
     }
 
     /**
+     * Поиск по запросу с готомым sql параметрами
+     * @param $sql
+     * @return array
+     */
+    public function findByCustomCondition($sql) {
+        $table = static::tableName();
+        $sql = "SELECT * FROM {$table} $sql";
+        return $this->db->findAll($sql, $this->getEntityName());
+    }
+
+    /**
      * Удаление обьекта данных из базы
      * @param $entity Entity
      */

@@ -76,6 +76,10 @@ class Controller {
         );
     }
 
+    /**
+     * Базовые параметры которые на всех представлениях могут использоватся
+     * @return array
+     */
     private function getBaseParams() {
         $products = $this->session->get('products');
         $isUserSet = $this->session->get('user_id');
@@ -85,6 +89,7 @@ class Controller {
             'guest' => !$isUserSet,
             'productsTotal' => $cartTotal['count'],
             'controller' => $this->getControllerName(),
+            'get' => $this->get(),
         ];
     }
 
@@ -104,7 +109,8 @@ class Controller {
      */
     public function redirect($controller = null, $action = null) {
         $controllerName = $controller? $controller : $this->getControllerName();
-        $action = $action? '/'.$action : '';
+        $separator = ( substr($action,0,1) === '?')? '' : '/' ;
+        $action = $action? $separator.$action : '';
         header("Location: /{$controllerName}{$action}");
         return true;
     }
