@@ -3,6 +3,7 @@
 namespace app\controllers;
 
 use app\models\entities\Order;
+use app\models\entities\User;
 use app\models\repositories\OrderRepository;
 use app\models\repositories\OrderStatusRepository;
 use app\models\repositories\ProductRepository;
@@ -38,6 +39,57 @@ class AdminController extends Controller {
     public function actionUsers() {
         return $this->render('users/index', [
             'users' => (new UserRepository())->findAll(),
+        ]);
+    }
+
+    /**
+     * Просмотр иинформации о пользователе
+     * @param $id
+     * @return false|string
+     */
+    public function actionViewUser($id) {
+        if (!is_null($id) && is_numeric($id)) {
+            $user = (new UserRepository)->find($id);
+            if ($user) {
+                return $this->render('users/view', [
+                    'user' => $user,
+                ]);
+            }
+        }
+        return $this->notFound();
+    }
+
+    /**
+     * Удаление пользователя из базы
+     * @param $id
+     * @return string
+     */
+    public function actionDeleteUser($id) {
+        $repository = new UserRepository();
+        $user = $repository->find($id);
+        if ($user) {
+            $repository->delete($user);
+        }
+        return $this->returnToLastPage();
+    }
+
+    /**
+     * Сохранение и обновление пользователя
+     * @param null $id
+     * @return false|string
+     */
+    public function actionSaveUser($id = null) {
+        $repository = new UserRepository();
+        $user = $id? $repository->find($id): new User();
+
+        if ($_SERVER['REQUEST_METHOD'] == POST && count($_POST)) {
+            $user->load($_POST);
+            $repository->save($user);
+            return $this->redirect($this->getControllerName(), 'users');
+        }
+
+        return $this->render('users/form', [
+            'user' => $user,
         ]);
     }
 

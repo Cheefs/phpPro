@@ -1,6 +1,7 @@
 {% extends "layouts/admin.twig" %}
 
 {% block data %}
+    <h3 class="text_center text_uppercase action-name">{{ translate.t('ru', 'users' ) }}</h3>
     {% set class = 'required' %}
     {% if (user.id != null) %}
         {% set class = 'disabled' %}
@@ -58,7 +59,7 @@
             {{ translate.t('ru', 'save') }}
         </button>
         <button type="button" class="form__button redirect"
-            data-href="/admin/users">
+            data-href="/{{ controller }}/users">
             {{ translate.t('ru', 'cancel') }}
         </button>
     </div>

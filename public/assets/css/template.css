@@ -681,8 +681,6 @@ header {
     background-image: url("../images/promo.jpg");
     height: 613px;
     background-position-y: -52px; }
-    .promo .promo-content:hover {
-      transform: scale(0.9) translate(0, 32px); }
   .promo .promo-text {
     float: left;
     margin-top: 224px;
