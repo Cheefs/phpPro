@@ -8,4 +8,8 @@ class Helper {
         $namespace = explode('\\', $namespace);
         return $namespace[count($namespace) - 1];
     }
+
+    public static function getHash(string $str) {
+        return md5($str);
+    }
 }

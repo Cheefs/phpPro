@@ -1,0 +1,18 @@
+{% extends 'layouts/user.twig' %}
+
+{% block data %}
+    <div class="form">
+        <h3 class="text_center text_uppercase action-name">{{ translate.t('ru', 'my orders' ) }}</h3>
+
+        <h4 class="text_center">{{ translate.t('ru', 'order price') }} <span>{{ order.price }}</span></h4>
+        <div class="flex items_center">
+            {% for product in order.products %}
+                <a class="link" href="/products/view?id={{ product.id }}">
+                    <img class="image" src="/assets/{{ product.photo }}" alt="photo">
+                    <span class="price_label">{{ product.price }} x {{ product.count }}</span>
+                </a>
+            {% endfor %}
+        </div>
+        <a class="form__button redirect" href="/{{ controller }}/orders">{{ translate.t('ru', 'to orders') }}</a>
+    </div>
+{% endblock %}

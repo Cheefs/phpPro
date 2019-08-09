@@ -1,6 +1,77 @@
+.form__container {
+  width: 45%;
+  margin: 20px 0; }
+
+.required_field {
+  color: red; }
+
+.has_error {
+  color: red;
+  border-color: red !important; }
+
+.products__small {
+  height: 50px; }
+
+.link, .link .image {
+  position: relative;
+  margin: 2px;
+  border: 1px solid #ddd;
+  border-radius: 2px;
+  display: block;
+  height: 100%; }
+  .link:hover .image, .link .image:hover .image {
+    transform: scale(1.2); }
+  .link:hover .price_label, .link .image:hover .price_label {
+    transform: scale(1.2) rotate(-22deg) translate(10px, 25px); }
+  .link .price_label {
+    transition: 0.2s;
+    position: absolute;
+    bottom: 15px;
+    right: 15px;
+    transform: rotate(-22deg);
+    font-weight: bold;
+    color: #f16d7f;
+    text-shadow: 2px 2px black;
+    font-size: 2em; }
+  .link .image {
+    transition: 0.3s; }
+
+.form .input {
+  padding: 5px;
+  margin: 10px;
+  border: 1px solid #ddd;
+  border-radius: 2px; }
+.form .btn {
+  font-weight: bold;
+  cursor: pointer;
+  color: #ffffff;
+  background-color: #f16d7f;
+  padding: 9px 23px;
+  border-radius: 3px;
+  transition: 0.3s ease-in-out;
+  box-sizing: border-box;
+  border: 1px solid transparent; }
+  .form .btn:hover {
+    border-color: #ddd;
+    color: #222222;
+    background-color: #ffffff; }
+
 .flex {
   display: flex;
   justify-content: center; }
+  .flex.space_between {
+    justify-content: space-between; }
+  .flex.items_center {
+    align-items: center; }
+
+.text_uppercase {
+  text-transform: uppercase; }
+
+.margin {
+  margin: 20px; }
+
+.no_margin {
+  margin: 0; }
 
 .text_center {
   text-align: center; }

@@ -1,5 +1,7 @@
-{% extends 'layouts/main.twig' %}
-{% block content %}
+{% extends "layouts/admin.twig" %}
+
+{% block data %}
+    <h3 class="text_center text_uppercase action-name">{{ translate.t('ru', 'users' ) }}</h3>
     {% set class = 'required' %}
     {% if (user.id != null) %}
         {% set class = 'disabled' %}
@@ -13,9 +15,7 @@
     </div>
     <div class="form__field">
         <label class="label" for="password">{{ translate.t('ru', 'password') }}</label>
-        <input class="input" id="password" name="password" type="password"
-           {{ class }}
-        >
+        <input class="input" id="password" name="password" type="password"{{ class }}>
     </div>
 
     <div class="form__field">
@@ -56,8 +56,8 @@
         <button type="submit" class="form__button save">
             {{ translate.t('ru', 'save') }}
         </button>
-        <button type="button" class="form__button cancel"
-            data-href="/{{ controller }}">
+        <button type="button" class="form__button redirect"
+            data-href="/{{ controller }}/users">
             {{ translate.t('ru', 'cancel') }}
         </button>
     </div>

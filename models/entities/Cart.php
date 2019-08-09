@@ -5,7 +5,6 @@ namespace app\models\entities;
  * @property int $count
  * @property int $user_id
  * @property int $product_id
- * @property int $is_guest
  *
  */
 class Cart extends Entity {

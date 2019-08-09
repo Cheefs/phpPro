@@ -3,6 +3,8 @@
 namespace app\controllers;
 
 use app\helpers\Helper;
+use app\models\entities\User;
+use app\models\repositories\CartRepository;
 use app\services\interfaces\IRenderService;
 use app\services\Request;
 use app\services\Session;
@@ -15,17 +17,18 @@ use Translate;
  * @property string $default
  * @property Request $request
  * @property Session $session
+ * @property User $identity
  *
 */
-abstract class Controller {
+class Controller {
     const ACTION = 'action';
     const CONTROLLER = 'Controller';
+    private $renderer;
     protected $default = 'default';
-    protected $renderer;
     protected $request;
     protected $session;
 
-    public function __construct(TwigRenderService $renderer, Request $request, Session $session) {
+    public function __construct(TwigRenderService $renderer, Request $request, Session $session = null) {
         $this->renderer = $renderer;
         $this->request = $request;
         $this->session = $session;
@@ -74,21 +77,47 @@ abstract class Controller {
     }
 
     /**
+     * Базовые параметры которые на всех представлениях могут использоватся
+     * @return array
+     */
+    private function getBaseParams() {
+        $products = $this->session->get('products');
+        $isUserSet = $this->session->get('user_id');
+        $cartTotal = (new CartRepository())->getTotalCartPrice($products?? []);
+
+        return [
+            'guest' => !$isUserSet,
+            'productsTotal' => $cartTotal['count'],
+            'controller' => $this->getControllerName(),
+            'get' => $this->get(),
+        ];
+    }
+
+    /**
      * @param string $template
      * @param array $params
      */
     protected function renderTemplate(string $template, array $params = []) {
-       return $this->renderer->renderTmpl($template, $params);
+        $baseParams = $this->getBaseParams();
+        return $this->renderer->renderTmpl($template, array_merge($params, $baseParams));
     }
 
     /**
      * @param $action
+     * @param $controller
      * @return true
      */
-    public function redirect($action = null) {
-        $controllerName = $this->getControllerName();
-        $action = $action? '/'.$action : '';
-        header("Location: /{$controllerName}{ $action }");
+    public function redirect($controller = null, $action = null) {
+        $controllerName = $controller? $controller : $this->getControllerName();
+        $separator = ( substr($action,0,1) === '?')? '' : '/' ;
+        $action = $action? $separator.$action : '';
+        header("Location: /{$controllerName}{$action}");
+        return true;
+    }
+
+    public function returnToLastPage() {
+        $location = $_SERVER['HTTP_REFERER'];
+        header("Location: $location");
         return true;
     }
 

@@ -1,15 +1,117 @@
 {% extends "layouts/main.twig" %}
 
+{% block promo %}
+    <div class="promo">
+        <div class="container">
+            <div class="promo-content">
+                <div class="promo-text">
+                    <h2 class="promo-h2">THE BRAND</h2>
+                    <h3 class="promo-h3">OF LUXERIOUS <span>FASHION</span></h3>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
 {% block content %}
-    <nav class="nav">
-        <a class="nav__btn" href="/users">
-            {{ translate.t('ru', 'to users')  }}
-        </a>
-        <a class="nav__btn" href="/products">
-            {{ translate.t('ru', 'to products') }}
-        </a>
-        <a class="nav__btn" href="/cart">
-            {{ translate.t('ru', 'to my cart') }}
-        </a>
-    </nav>
+
+    <div class="body-content">
+        <div class="content-hot">
+            <a href="/products" class="hot-deal">
+                <div class="text hot-deal-text">
+                    HOT DEAL<br>
+                    <span>FOR MEN</span>
+                </div>
+            </a>
+            <a href="/products" class="trendy">
+                <div class="text trendy-text">
+                    LUXIROUS & trendy<br>
+                    <span>ACCESORIES</span>
+                </div>
+                <div class="trendy-img"></div>
+            </a>
+            <a href="/products" class="offer-deal">
+                <div class="text offer-deal-text">
+                    30% offer<br>
+                    <span>women</span>
+                </div>
+            </a>
+            <a href="/products" class="new-arrivals">
+                <div class="text new-arrivals-text">
+                    new arrivals<br>
+                    <span>FOR kids</span>
+                </div>
+            </a>
+        </div>
+
+{#        <section>#}
+{#            <div class="featured-text">#}
+{#                <h1>Fetured Items </h1>#}
+{#                <p>Shop for items based on what we featured in this week</p>#}
+{#            </div>#}
+{#            <div class="product-block featured-container">#}
+{#                <!-- js render -->#}
+{#            </div>#}
+{#        </section>#}
+
+{#        <div class="btn-allproducts-container">#}
+{#            <a class="btn-all-products" href="#">Browse All Product</a>#}
+{#        </div>#}
+
+        <div class="info-container">
+            <div class="content-info">
+                <a href="/products" class="content-left">
+                    <div class="info-text">
+                        <h1>30% <span>OFFER</span></h1>
+                        <h2>FOR WOMEN</h2>
+                    </div>
+                </a>
+                <div class="content-right">
+                    <div class="shop-info">
+                        <div class="shop-info-left">
+                            <img src="/assets/images/dellivery.svg" alt="dellivery">
+                        </div>
+                        <article class="shop-info-right">
+                            <h3>Free Delivery</h3>
+                            <p>
+                                Worldwide delivery on all. Authorit tively morph next-generation innov tion with extensive models.
+                            </p>
+                        </article>
+                    </div>
+
+                    <div class="shop-info">
+                        <div class="shop-info-left">
+                            <img src="/assets/images/discount.svg" alt="discount">
+                        </div>
+                        <article class="shop-info-right">
+                            <h3>Sales & discounts</h3>
+                            <p>Worldwide delivery on all. Authorit tively morph next-generation innov tion with extensive models.</p>
+                        </article>
+                    </div>
+
+                    <div class="shop-info">
+                        <div class="shop-info-left">
+                            <img src="/assets/images/quality.svg" alt="quality">
+                        </div>
+                        <article class="shop-info-right">
+                            <h3>Quality assurance</h3>
+                            <p>Worldwide delivery on all. Authorit tively morph next-generation innov tion with extensive models.</p>
+                        </article>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+    </div>
+{#    <nav class="nav">#}
+{#        <a class="nav__btn" href="/users">#}
+{#            {{ translate.t('ru', 'to users')  }}#}
+{#        </a>#}
+{#        <a class="nav__btn" href="/products">#}
+{#            {{ translate.t('ru', 'to products') }}#}
+{#        </a>#}
+{#        <a class="nav__btn" href="/cart">#}
+{#            {{ translate.t('ru', 'to my cart') }}#}
+{#        </a>#}
+{#    </nav>#}
 {% endblock %}

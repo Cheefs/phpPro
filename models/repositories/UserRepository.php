@@ -17,12 +17,13 @@ class UserRepository extends Repository {
     }
 
     /**
-     * Получение корзины пользователя
-     * @return array
+     * @param $id
+     * @return \PDOStatement
      */
-    public function getCart() {
-        return CartRepository::findAll([
-            'user_id' => $this->id,
-        ]);
+    public function isAdmin($id) {
+        $table = self::tableName();
+        $admin = User::ADMIN;
+        $sql = "SELECT * FROM {$table} WHERE id = :id AND is_admin = :is_admin";
+        return $this->db->find($sql, User::class, [':id' => $id, 'is_admin' => $admin]);
     }
 }

@@ -1,0 +1,37 @@
+{% extends "layouts/main.twig" %}
+
+{% block promo %}
+    <div class="product-top-panel">
+        <div class="container">
+            <h3 class="top-panel-h3">
+                <a class="breadcrumbs-a" href="/{{ controller }}">{{ controller }}</a>
+            </h3>
+            <nav class="breadcrumbs">
+                <a class="breadcrumbs-a" href="/">Home</a><span>/</span>
+                <a class="breadcrumbs-a now" href="/{{ controller }}">/{{ controller }}</a>
+            </nav>
+        </div>
+    </div>
+{% endblock %}
+
+{% block content %}
+
+    <div class="container my-account">
+
+        <div class="nav__panel">
+            <div class="nav__element text_uppercase redirect" data-href="/{{ controller }}/orders">
+                {{ translate.t('ru', 'orders') }}
+            </div>
+            <div class="nav__element text_uppercase redirect" data-href="/{{ controller }}/users">
+                {{ translate.t('ru', 'users') }}
+            </div>
+            <div class="nav__element text_uppercase redirect" data-href="/{{ controller }}/products">
+                {{ translate.t('ru', 'products') }}
+            </div>
+        </div>
+
+        <div class="my-data_container">
+            {% block data %}{% endblock %}
+        </div>
+    </div>
+{% endblock %}

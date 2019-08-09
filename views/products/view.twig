@@ -1,38 +1,111 @@
 {% extends 'layouts/main.twig' %}
+{% block promo %}
+    <div class="product-top-panel">
+        <div class="container">
+            <h3 class="top-panel-h3"><a class="breadcrumbs-a" href="#">Single Page</a></h3>
+            <nav class="breadcrumbs">
+                <a class="breadcrumbs-a" href="/">Home</a><span>/</span>
+                <a class="breadcrumbs-a" href="/products">Products</a><span>/</span>
+                <a class="breadcrumbs-a now" href="#">Single Page</a>
+            </nav>
+        </div>
+    </div>
+{% endblock %}
 {% block content %}
-<div>
-    <nav class="nav">
-        <a class="nav__btn" href="/">{{ translate.t('ru', 'home') }}</a>
-        <a class="nav__btn" href="/{{ controller }}">
-            {{ translate.t('ru', 'back') }}
-        </a>
-    </nav>
 
-    <div class="flex">
-        <img src="/assets/{{ product.photo }}" alt="product-photo">
-    </div>
-
-    <div>
-        <h3 class="text_center text_bold">{{ product.name }}</h3>
-        <p class="text_center">{{ product.desc }}</p>
-        <div class="text_center text_bold">
-            <span>
-                {{ translate.t('ru', 'material') }}:
-            </span>
-            <span class="text_marked">{{ product.material }}</span>
-        </div>
-        <div class="text_center text_bold">
-            <span>
-                {{ translate.t('ru', 'brand') }}:
-            </span>
-            <span class="text_marked">{{ product.brand }}</span>
-        </div>
-        <div class="text_center text_bold">
-            <span>
-                {{ translate.t('ru', 'price') }}:
-            </span>
-            <span class="text_marked">{{ product.price }}</span>
+<div class="slider">
+    <a href="#" class="arrow left"><i class="fas fa-angle-right"></i></a>
+    <div class="photo">
+        <div class="photo-link">
+            <img class="photo_img" src="/assets/{{ product.photo }}" alt="photo">
         </div>
     </div>
+    <a href="#" class="arrow right"><i class="fas fa-angle-left"></i></a>
 </div>
+
+<div class="container product-info">
+    <div class="product-desc">
+        <h3 class="product-desc-h3">COLLECTION</h3>
+        <div class="line">
+            <div class="line-color"></div>
+        </div>
+        <article class="product-desc-article single_product">
+            <h3 class="article-h3">{{ product.name }}</h3>
+            <p class="article-p">{{ product.desc }}</p>
+            <div class="material-desinger">
+                <div class="material-desinger-el">MATERIAL:
+                    <a class="material-desinger-link" href="#">{{ product.material }}</a>
+                </div>
+                <div class="material-desinger-el">DESIGNER:
+                    <a class="material-desinger-link" href="#">{{ product.brand }}</a>
+                </div>
+            </div>
+            <div class="product-price">${{ product.price }}</div>
+        </article>
+
+        <div class="product-params">
+{#            <div class="choise">#}
+{#                <h3 class="product-params-h3">CHOOSE COLOR</h3>#}
+{#                <select class="product-params-select select_color">#}
+{#                    ${this.renderOptions(this.colors)}#}
+{#                </select>#}
+{#                <div class="color-example red"></div>#}
+{#            </div>#}
+
+{#            <div class="choise size">#}
+{#                <h3 class="product-params-h3">CHOOSE SIZE</h3>#}
+{#                <select class="product-params-select select_size">#}
+{#                    ${this.renderOptions(this.sizes)}#}
+{#                </select>#}
+{#            </div>#}
+{#            <div class="choise">#}
+{#                <h3 class="product-params-h3">QUANTITY</h3>#}
+{#                <input class="product-params-input input_count" type="number" min="1" value="1">#}
+{#            </div>#}
+
+            <a class="product-params-a btn_buy" href="/products/buy?id={{ product.id }}">
+                <img  class="product-params-img" src="/assets/images/single-page-cart.svg" alt="cart">
+                <span class="product-params-span">Add to Cart</span>
+            </a>
+        </div>
+{#    <section class="recomended">#}
+{#        <h3 class="recomended-h3">you may like also</h3>#}
+{#        <div class="product-container">#}
+{#            <div class="product" data-size="${this.size}" data-color="${this.color}" data-type="${this.type}" data-category="${this.category}">#}
+{#                <a href="single-page.html" class="photo-link">#}
+{#                    <div class="photo">#}
+{#                        <img class="photo_img" src="${this.photo}" alt="photo" data-id="${this.id}">#}
+{#                    </div>#}
+{#                </a>#}
+{#                <div class="buttons">#}
+{#                    <a href="#" class="product-btn add-to-cart" data-id="${this.id}" >#}
+{#                        <img class="cart" src="images/cart-item.svg" alt="cart">#}
+{#                        <span>Add to Cart</span>#}
+{#                    </a>#}
+{#                    <a href="#" class="product-btn small-btn">#}
+{#                        <img src="images/compare.svg" alt="compare">#}
+{#                    </a>#}
+{#                    <a href="#" class="product-btn small-btn">#}
+{#                        <img src="images/like.svg" alt="like">#}
+{#                    </a>#}
+{#                </div>#}
+{#                <div class="text">#}
+{#                    <div class="name">${this.name}</div>#}
+{#                    <div class="price">#}
+{#                        ${this.currency}<span class="price_value">${this.price}</span>#}
+{#                    </div>#}
+{#                </div>#}
+{#            </div>#}
+{#        </div>#}
+{#    </section>#}
+</div>
+
+{#<div class="container comments">#}
+{#    <div class="header"> reviews</div>#}
+{#    <div class="product__comments"></div>#}
+{#    <div class="new__comment">#}
+{#        <textarea class="comment__text comment__input"></textarea>#}
+{#        <button class="add_button">addd</button>#}
+{#    </div>#}
+{#</div>#}
 {% endblock %}

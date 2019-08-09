@@ -10,3 +10,4 @@ define('AUTOLOAD', ROOT.'/vendor/autoload.php');
 define('MESSAGES', ROOT.'/services/messages/');
 define('TRANSLATE', ROOT.'/services/Translate.php');
 define('POST', 'POST');
+define('GET', 'GET');

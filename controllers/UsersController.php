@@ -3,73 +3,61 @@
 namespace app\controllers;
 
 use app\models\entities\User;
+use app\models\repositories\OrderRepository;
+use app\models\repositories\OrderStatusRepository;
 use app\models\repositories\UserRepository;
-use Translate;
 
 class UsersController extends Controller {
 
     /**
-     * Список пользователей
+     * Переход в личный кабинет
      * @return false|string
      */
     public function actionIndex() {
-        $users = (new UserRepository)->findAll();
-
-        return $this->render('index', [
-            'users' => $users,
-            'controller' => $this->getControllerName()
-        ]);
-    }
-
-    /**
-     * Просмотр иинформации о пользователе
-     * @param $id
-     * @return false|string
-     */
-    public function actionView($id) {
-        if (!is_null($id) && is_numeric($id)) {
-            $user = (new UserRepository)->find($id);
-            if ($user) {
-                return $this->render('view', [
-                    'user' => $user,
-                    'controller' => $this->getControllerName(),
-                ]);
-            }
-        }
-        return $this->notFound();
-    }
-
-    /**
-     * Удаление пользователя из базы
-     * @param $id
-     */
-    public function actionDelete($id) {
+        $user_id = $this->session->get('user_id');
+        /** @var $user User */
         $repository = new UserRepository();
-        $user = $repository->find($id);
-        if ($user) {
-            $repository->delete($user);
-        }
-        $this->redirect('index');
-    }
-
-    /**
-     * Сохранение и обновление пользователя
-     * @param null $id
-     * @return false|string
-     */
-    public function actionSave($id = null) {
-        $repository = new UserRepository();
-        $user = $id? $repository->find($id): new User();
+        $user = $repository->find($user_id);
 
         if ($_SERVER['REQUEST_METHOD'] == POST && count($_POST)) {
             $user->load($_POST);
             $repository->save($user);
-            return $this->redirect('index');
         }
 
-        return $this->render('form', [
-            'user' => $user,
-            'controller' => $this->getControllerName(),
-        ]);
+        if ($user) {
+            return $user->is_admin? $this->redirect('admin') :
+               $this->render('index', [
+                  'user' => $user
+            ]);
+
+        }
+        return $this->redirect('default');
+    }
+
+    public function actionOrders() {
+        $user_id = $this->session->get('user_id');
+        if ($user_id) {
+            $repository = new OrderRepository();
+            $orders = $repository->findAll(['user_id' => $user_id]);
+            $repository->prepareOrders($orders);
+           return $this->render('orders', [
+               'orders' => $orders,
+               'status' => (new OrderStatusRepository())->getStatusesArr(),
+           ]);
+        }
+        return $this->redirect('default');
+    }
+
+    public function actionOrder($id) {
+        $repository = new OrderRepository();
+        $order[] = $repository->find($id);
+        if ($order) {
+            $repository->prepareOrders($order);
+            return $this->render('order', [
+                'order' => $order[0],
+                'status' => (new OrderStatusRepository())->getStatusesArr(),
+            ]);
+        }
+        return $this->redirect('default');
     }
 }

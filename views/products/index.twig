@@ -1,58 +1,196 @@
 {% extends 'layouts/main.twig' %}
 {% block content %}
-<nav class="nav">
-    <a class="nav__btn" href="/">{{ translate.t('ru', 'home') }}</a>
-    <a class="nav__btn" href="/cart">
-        {{ translate.t('ru', 'to my cart') }}
-    </a>
-</nav>
+    <div class="container product-container">
+        <div class="left-side">
+            <div class="spoiler-container">
+                <a href="#" class="spoiler ">
+                    <h3 class="spoiler-h3">Category</h3>
+                    <div class="triangle"></div>
+                </a>
+                <nav class="spoiler-items category">
+                    <a class="spoiler-items-a" href="#">Accessories</a>
+                    <a class="spoiler-items-a" href="#">Bags</a>
+                    <a class="spoiler-items-a" href="#">Denim</a>
+                    <a class="spoiler-items-a" href="#">Dress</a>
+                    <a class="spoiler-items-a" href="#">Hoodies & Sweatshirts</a>
+                    <a class="spoiler-items-a" href="#">Jackets & Coats</a>
+                    <a class="spoiler-items-a" href="#">Pants</a>
+                    <a class="spoiler-items-a" href="#">Polos</a>
+                    <a class="spoiler-items-a" href="#">Shirts</a>
+                    <a class="spoiler-items-a" href="#">Shoes</a>
+                    <a class="spoiler-items-a" href="#">Shorts</a>
+                    <a class="spoiler-items-a" href="#">Sweaters & Knits</a>
+                    <a class="spoiler-items-a" href="#">T-Shirts</a>
+                    <a class="spoiler-items-a" href="#">Tanks</a>
+                </nav>
+            </div>
+            <div class="spoiler-container">
+                <a href="#" class="spoiler">
+                    <h3 class="spoiler-h3">BRAND</h3>
+                    <div class="triangle"></div>
+                </a>
+                <nav class="spoiler-items brand">
+                    <a class="spoiler-items-a" href="#">Bohemian</a>
+                    <a class="spoiler-items-a" href="#">Floral</a>
+                    <a class="spoiler-items-a" href="#">Lace</a>
+                    <a class="spoiler-items-a" href="#">Binburhan</a>
+                </nav>
+            </div>
+            <div class="spoiler-container">
+                <a href="#" class="spoiler">
+                    <h3 class="spoiler-h3">dESIGNER</h3>
+                    <div class="triangle"></div>
+                </a>
+                <nav class="spoiler-items desinger">
+                    <a class="spoiler-items-a" href="#">Bohemian</a>
+                    <a class="spoiler-items-a" href="#">Floral</a>
+                    <a class="spoiler-items-a" href="#">Lace</a>
+                    <a class="spoiler-items-a" href="#">Binburhan</a>
+                </nav>
+            </div>
+        </div>
+        <div class="right-side">
+            <div class="product-filters-block">
+                <div class="filters">
+                    <section class="brand-filers">
+                        <h3 class="brand-filers-h3">Trending now</h3>
+                        <a  class="brand-filers-a"  href="#">Bohemian</a>
+                        <span class="brand-filers-span">|</span>
+                        <a class="brand-filers-a" href="#" >Floral</a>
+                        <span class="brand-filers-span">|</span>
+                        <a class="brand-filers-a" href="#" >Lace</a>
+                        <a class="brand-filers-a" href="#">Floral</a>
+                        <span class="brand-filers-span"> |</span>
+                        <a class="brand-filers-a" href="#" >Lace</a>
+                        <span class="brand-filers-a">|</span>
+                        <a class="brand-filers-a" href="#">Bohemian</a>
+                    </section>
+                    <section class="size-filetes">
+                        <h3 class="size-filetes-h3">Size</h3>
 
-<table class="table">
-    <thead class="table__head">
-    <tr class="head__row">
-        <th class="head__cell">{{ translate.t('ru', 'id') }}</th>
-        <th class="head__cell">{{ translate.t('ru', 'photo') }}</th>
-        <th class="head__cell">{{ translate.t('ru', 'name') }}</th>
-        <th class="head__cell">{{ translate.t('ru', 'price') }}</th>
-        <th class="head__cell">{{ translate.t('ru', 'material') }}</th>
-        <th class="head__cell">{{ translate.t('ru', 'desc') }}</th>
-        <th class="head__cell">{{ translate.t('ru', 'brand') }}</th>
+                        <div class="filters-container">
+                            <div class="checkbox">
+                                <input class="checkbox_input" type="checkbox" name="XXS" id="XXS" value="XXS">
+                                <label class="checkbox-label" for="XXS">
+                                    <span class="checkbox-span">XXS</span>
+                                </label>
+                            </div>
+                            <div class="checkbox">
+                                <input class="checkbox_input" type="checkbox" name="XS" id="XS"  value="XS">
+                                <label class="checkbox-label" for="XS">
+                                    <span class="checkbox-span">XS</span>
+                                </label>
 
-        <th class="head__cell actions">
-            <i class="btn create far fa-plus-square hide"
-               data-href="?c={{ controller }}&a=save"
-            ></i>
-        </th>
-    </tr>
-    </thead>
-    <tbody>
-    {% for product in products %}
-        <tr class="table__row" data-href="/{{ controller }}/view?id={{ product.id }}">
-            <td class="table__cell">{{ product.id }}</td>
-            <td class="table__cell">
-                <img class="product__photo" src="/assets/{{ product.photo }}" alt="product-photo">
-            </td>
-            <td class="table__cell">{{ product.name }}</td>
-            <td class="table__cell">{{ product.price }}</td>
+                            </div>
+                            <div class="checkbox">
+                                <input class="checkbox_input" type="checkbox" name="S" id ="S" value="S">
+                                <label class="checkbox-label" for="S">
+                                    <span class="checkbox-span">S</span>
+                                </label>
+                            </div>
+                            <div class="checkbox">
+                                <input class="checkbox_input" type="checkbox" name="M" id="M" value="M">
+                                <label class="checkbox-label" for="M">
+                                    <span class="checkbox-span">M</span>
+                                </label>
+                            </div>
+                            <div class="checkbox">
+                                <input class="checkbox_input" type="checkbox" name="L" id="L" value="L">
+                                <label class="checkbox-label" for="L">
+                                    <span class="checkbox-span">L</span>
+                                </label>
 
-            <td class="table__cell">{{ product.material }}</td>
-            <td class="table__cell">{{ product.desc }}</td>
-            <td class="table__cell">{{ product.brand }}</td>
+                            </div>
+                            <div class="checkbox">
+                                <input class="checkbox_input" type="checkbox" name="XL" id="XL" value="XL">
+                                <label class="checkbox-label" for="XL">
+                                    <span class="checkbox-span">XL</span>
+                                </label>
+                            </div>
+                            <div class="checkbox">
+                                <input class="checkbox_input" type="checkbox" name="XXL" id="XXL" value="XXL">
+                                <label class="checkbox-label" for="XXL">
+                                    <span class="checkbox-span">XXL</span>
+                                </label>
+                            </div>
+                        </div>
 
-            <td class="table__cell">
-                <i class="btn update fas fa-pencil-alt hide"
-                   data-href="/{{ controller }}/save?id={{ product.id }}"
-                ></i>
-                <i class="btn delete far fa-trash-alt hide"
-                   data-href="/{{ controller }}/delete?id={{ product.id }}"
-                ></i>
+                    </section>
+                    <div class="price-filter">
+                        <div class="price-input">
+                            <h3 class="price-input-h3">pRICE</h3>
+                            <div class="input-bar">
+                                <div class="input-value" >
+                                    <div class="input-btn left" style="left:110px;">
+                                        <span class="progress__overflow"></span>
+                                    </div>
+                                    <div class="input-btn right" style="left:120px;">
+                                        <span class="progress__overflow"></span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="price-range">
+                                <div class="price_min">$500</div>
+                                <div class="price_max">$510</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="sorting">
+                    <div class="sort-container">
+                        <div class="sort-by">Sort By</div>
+                        <select class="select-condition select_sort">
+                            <option value="0">Name</option>
+                            <option value="1">Price</option>
+                            <option value="2">Size</option>
+                        </select>
+                    </div>
+                    <div class="sort-container">
+                        <div class="sort-by show">Show</div>
+                        <select class="select-condition select_show">
+                            <option value="9">9</option>
+                            <option value="18">18</option>
+                            <option value="36">36</option>
+                        </select>
+                        <!-- <a class="condition"><span class="condition-span">09</span></a> -->
+                    </div>
+                </div>
+            </div>
 
-                <i class="btn buy fas fa-shopping-cart"
-                   data-href="/{{ controller }}/buy?id={{ product.id }}"
-                ></i>
-            </td>
-        </tr>
-    {% endfor %}
-    </tbody>
-</table>
+            <div class="product-block">
+                {% for product in products %}
+                    <div class="product" data-id="${this.id}">
+                        <a href="/{{ controller }}/view?id={{ product.id }}" class="photo-link">
+                            <div class="photo" data-id="{{ product.id }}">
+                                <img class="photo_img" src="/assets/{{ product.photo }}" alt="photo" >
+                            </div>
+                        </a>
+                        <div class="buttons">
+                            <a href="/{{ controller }}/buy?id={{ product.id }}" class="product-btn add-to-cart" data-id="${this.id}">
+                                <img class="cart" src="/assets/images/cart-item.svg" alt="cart">
+                                <span>Add to Cart</span>
+                            </a>
+                            <a href="#" class="product-btn small-btn">
+                                <img src="/assets/images/compare.svg" alt="compare">
+                            </a>
+                            <a href="#" class="product-btn small-btn">
+                                <img src="/assets/images/like.svg" alt="like">
+                            </a>
+                        </div>
+                        <div class="text">
+                            <div class="name">{{ product.name }}</div>
+                            <div class="price">
+                                <span class="currency">$</span>
+                                <span class="price_value">{{ product.price }}</span>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+            <div class="bottom">
+                <div class="pages-block"></div>
+                <a href="#" class="btn-view-all">View All</a>
+            </div>
+        </div>
+    </div>
 {% endblock %}

@@ -1,0 +1,43 @@
+{% extends "layouts/admin.twig" %}
+
+{% block data %}
+    <h3 class="text_center text_uppercase action-name">{{ translate.t('ru', 'users' ) }}</h3>
+    <h4 class="text_center">
+        {{ translate.t('ru', 'view user') }}
+        <span class="text_marked">{{ user.username }}</span>
+    </h4>
+    <form class="form">
+        <div class="form__field">
+            <label class="label" for="username">{{ translate.t('ru', 'username') }}</label>
+            <input disabled id="username" class="input" value="{{ user.username }}">
+        </div>
+        <div class="form__field">
+            <label class="label" for="password">{{ translate.t('ru', 'password') }}</label>
+            <input disabled class="input" id="password"{{ class }}>
+        </div>
+
+        <div class="form__field">
+            <label class="label" for="last_name">{{ translate.t('ru', 'last name') }}</label>
+            <input disabled class="input" id="last_name" value="{{ user.last_name }}">
+        </div>
+        <div class="form__field">
+            <label class="label" for="first_name">{{ translate.t('ru', 'first name') }}</label>
+            <input disabled class="input" id="first_name" value="{{ user.first_name }}">
+        </div>
+
+        <div class="form__field">
+            <label class="label" for="second_name">{{ translate.t('ru', 'second name') }}</label>
+            <input disabled class="input" id="second_name" value="{{ user.second_name }}">
+        </div>
+        <div class="form__field">
+            <label class="label" for="email">{{ translate.t('ru', 'email') }}</label>
+            <input disabled class="input" id="email" value="{{ user.email }}">
+        </div>
+
+        <div class="form__field">
+            <label class="label" for="phone">{{ translate.t('ru', 'phone') }}</label>
+            <input disabled class="input" id="phone" value="{{ user.phone }}">
+        </div>
+        <a class="form__button redirect" href="/{{ controller }}/users">{{ translate.t('ru', 'to users') }}</a>
+    </form>
+{% endblock %}
